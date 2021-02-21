@@ -42,7 +42,7 @@
               <div class="collapse navbar-collapse" id="meniToggle">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="index.html">Početna</a>
+                        <a class="nav-link" href="index.html">Početna</a>
                       </li>
                       <li class="nav-item">
                         <a class="nav-link" href="#">O nama</a>
@@ -51,7 +51,7 @@
                         <a class="nav-link" href="#">Proizvodi</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="#">Kontakt</a>
+                        <a class="nav-link active" href="#">Kontakt</a>
                       </li>
                 </ul>
               </div>
@@ -61,22 +61,35 @@
     </header>
     <!-- MAIN -->
     <main>
-        <div class="container-fluid p-0" id="blurPozadina">
-            <div class="omotacBlur">
-                <div class="container border-secondary" id="pozadina">
-                    <div id="naslovSlajder" class="text-center">
-                        <h1 class="display-1">La PIEL</h1>
-                        <p class="fst-italic h1" id="drugiFont">by Lana Jur&#269evi&#263</p>
-                    </div>
+        <div class="container mt-5 mb-5">
+            <div class="row">
+                <div class="col-5 mx-auto">
+                    <form action="">
+                        <div class="form-group">
+                            <label for="tbImePrezime">Ime i prezime:</label>
+                            <input type="text" class="form-control mt-2" id="tbImePrezime" name="imePrezime">
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="tbEmail">Email:</label>
+                            <input type="text" class="form-control mt-2" id="tbEmail" name="email">
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="tbBrojTelefona">Broj telefona:</label>
+                            <input type="text" class="form-control mt-2" id="tbBrojTelefona" name="brojTelefona">
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="taPoruka">Poruka:</label>
+                            <textarea name="poruka" id="taPoruka" cols="30" rows="5" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group text-center mt-3">
+                            <button type="button" id="btnPosalji" name="btnPosalji" class="btn btn-dark bojaShimmer">POŠALJI <i class="fas fa-paper-plane ps-2"></i></button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-        <div class="container mt-5 mb-5">
-            <h1 class="text-center">Top proizvodi</h1>
-            <div id="slajderTopProizvodi"></div>
-            <div class="text-center">
-                <a href="" class="btn btn-dark bojaShimmer p-2">Svi proizvodi<i class="fas fa-angle-double-right ps-3"></i></a>
-            </div>
+        <div class="container-fluid mt-5 mb-5 p-0">
+            <iframe id="mapa" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2830.358671714462!2d20.482226115547768!3d44.81425718459524!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475a7a9609031735%3A0xc17ed71f59ac4725!2z0JLQuNGB0L7QutCwINCY0KbQoiDRiNC60L7Qu9Cw!5e0!3m2!1ssr!2srs!4v1613949887822!5m2!1ssr!2srs" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
         </div>
     </main>
     <!-- FOOTER -->
@@ -97,7 +110,7 @@
                                 <a href="#" class="text-decoration-none">Proizvodi</a>
                             </li>
                             <li class="list-group-item border-0">
-                                <a href="kontakt.html" class="text-decoration-none">Kontakt</a>
+                                <a href="#" class="text-decoration-none">Kontakt</a>
                             </li>
                         </ul>
                         <ul class="list-inline listaSocMreze" id="footerSocMreze">

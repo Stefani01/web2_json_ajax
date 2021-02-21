@@ -48,7 +48,7 @@ $purple: #6C4675;
     .active{
         border-bottom: 3px solid $shimmer;
     }
-    #kolicaKupovina{
+    #kolicaKupovina, #btnMeni{
         color: $shimmer;
         font-size: 20px;
         cursor: pointer;
@@ -124,4 +124,9 @@ $purple: #6C4675;
 
 a:hover{
     color: $shimmer;
+}
+
+#mapa{
+    width: 100%;
+    height: 400px;
 }

@@ -50,7 +50,7 @@ body {
   border-bottom: 3px solid #E9C490;
 }
 
-#navigacija #kolicaKupovina {
+#navigacija #kolicaKupovina, #navigacija #btnMeni {
   color: #E9C490;
   font-size: 20px;
   cursor: pointer;
@@ -136,5 +136,10 @@ body {
 
 a:hover {
   color: #E9C490;
+}
+
+#mapa {
+  width: 100%;
+  height: 400px;
 }
 /*# sourceMappingURL=style.css.map */
