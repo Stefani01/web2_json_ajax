@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "naziv": "Kreme za lice",
+        "idKat": 1
+    },
+    {
+        "id": 2,
+        "naziv": "Čišćenje lica",
+        "idKat": 1
+    },
+    {
+        "id": 3,
+        "naziv": "Poslastice za kupanje",
+        "idKat": 2
+    },
+    {
+        "id": 4,
+        "naziv": "Mleko za telo",
+        "idKat": 2
+    },
+    {
+        "id": 5,
+        "naziv": "Piling tela",
+        "idKat": 2
+    },
+    {
+        "id": 6,
+        "naziv": "Ulja za telo",
+        "idKat": 2
+    },
+    {
+        "id": 7,
+        "naziv": "Poslastice za kupanje",
+        "idKat": 2
+    },
+    {
+        "id": 8,
+        "naziv": "Nega ruku",
+        "idKat": 2
+    }
+]

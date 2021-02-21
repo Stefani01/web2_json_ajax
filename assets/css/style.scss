@@ -1,0 +1,127 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+// font-family: 'Playfair Display', serif;
+@import url('https://fonts.googleapis.com/css2?family=Italianno&display=swap');
+// font-family: 'Nothing You Could Do', cursive;
+body{
+    font-family: 'Playfair Display', serif;
+}
+// BOJE
+$shimmer: #E9C490;
+$lila: #C8A2C8;
+$purple: #6C4675;
+
+.bojaShimmer{
+    color:$shimmer;
+}
+
+#traka{
+    a{
+        color: $shimmer;
+    }
+    #info{
+        color: white;
+    }
+    i{
+        font-size: 20px;
+        padding: 5px;
+        color: $shimmer;
+    }
+}
+
+#navigacija{
+    background-color: white;
+    img{
+        width: 30%;
+    }
+    #btnMeni:hover{
+        color: $shimmer;
+    }
+    a{
+        color: #000;
+        font-size: 20px;
+    }
+    .active{
+        border-bottom: 3px solid $shimmer;
+    }
+    #kolicaKupovina{
+        color: $shimmer;
+        font-size: 20px;
+        cursor: pointer;
+    }
+}
+
+#blurPozadina{
+    border: 1px solid $shimmer;
+    background-image: url('../images/pozadina.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 500px;
+}
+
+.omotacBlur{
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    background: rgba(0,0,0, 0.1);
+    backdrop-filter: blur(5px);
+
+    display: flex;
+    align-items: center;
+}
+
+#pozadina{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-image: url('../images/pozadina.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 350px;
+        
+        #drugiFont{
+            font-family: 'Italianno', cursive;
+        }
+}
+
+#naslovSlajder{
+    color: white;
+    border-color: $shimmer;
+    border-width: 10px;
+    border-style: double;
+    padding: 30px 85px;
+    text-shadow: 2px 2px 2px #000;
+    background-color: rgba(0,0,0, 0.5);
+}
+
+#footer{
+    border-top: 2px solid $shimmer;
+    #footerLinkoviMeni li a{
+        color: #000;
+    }
+    #footerPotpis{
+        border-top: 2px solid $shimmer;
+    }
+}
+
+.listaSocMreze li a{
+    color: $shimmer;
+    font-size: 20px;
+    text-align: center;
+}
+
+#btnInfo{
+    background-color: $shimmer;
+    color: white;
+}
+
+a:hover{
+    color: $shimmer;
+}

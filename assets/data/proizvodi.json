@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "katProizvod": 1,
+        "naziv": "",
+        "opis": "",
+        "cena": 0,
+        "stanje": true,
+        "slika": "",
+        "popust": 0
+    },
+    {
+        "id": 2,
+        "katProizvod": 2,
+        "naziv": "",
+        "opis": "",
+        "cena": 0,
+        "stanje": false,
+        "slika": "",
+        "popust": 3
+    }
+]
