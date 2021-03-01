@@ -1,17 +1,16 @@
 @media screen and (max-width:992px){
     .navbar-brand{
-        width: 80% !important;
+        width: 60% !important;
         text-align: center !important;
     }
 }
 
 @media screen and (max-width:492px){
-    .navbar-brand{
-        width: 70% !important;
+    /*.navbar-brand{
+        width: 50% !important;
         text-align: center !important;
-    }
-    #meniMail a, #meniMail i, #ikoniceMreze i, #info{
-        font-size: 10px;
-        padding: 0px;
+    }*/
+    #btnMeni btn, #kolicaKupovina i{
+        font-size: 15px;
     }
 }

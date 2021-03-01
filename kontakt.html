@@ -32,30 +32,22 @@
                 </div>
             </div>
         </div>
-        <nav class="navbar navbar-expand-lg p-3 p-md-0" id="navigacija">
-            <div class="container-fluid">
-                <div class="navbar-toggler">
-                    <span class="fas fa-bars" id="btnMeni"></span>
-                </div>
-              <a class="navbar-brand p-0" href="index.html"><img src="assets/images/Prirodna_kozmetika_lana_jurcevic_la_piel_logo.png" class="img-fluid p-0" alt="Prirodna_kozmetika_lana_jurcevic_la_piel_logo.png"></a>
-              <div id="kolicaKupovina" class="me-3 d-block d-lg-none"><span class="fas fa-shopping-cart"></span></div>
+        <nav class="navbar navbar-expand-lg p-0">
+            <div class="container-fluid" id="navigacija">
+              <button class="navbar-toggler" type="button" id="btnMeni">
+                <span class="fas fa-bars"></span>
+              </button>
+              <a class="navbar-brand" href="index.html"><img src="assets/images/lana_jurcevic_prirodna_kozmetika.png" class="img-fluid" alt="Prirodna_kozmetika_lana_jurcevic_la_piel_logo.png"></a>
+              <div id="kolicaKupovina" class="me-3 d-block d-lg-none"><i class="fas fa-shopping-cart"></i></div>
               <div class="collapse navbar-collapse" id="meniToggle">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Početna</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">O nama</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Proizvodi</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link active" href="#">Kontakt</a>
-                      </li>
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0" id="navbarMeni">
                 </ul>
               </div>
-              <div id="kolicaKupovina" class="me-3 d-none d-lg-block"><span class="fas fa-shopping-cart"></span></div>
+              <div id="kolicaKupovina" class="me-3 d-none d-lg-block">
+                  <a href="korpa.html">
+                     <span class="badge rounded-pill bg-dark bojaShimmer"><span class="fas fa-shopping-cart pe-2"></span></span>
+                  </a>
+                </div>
             </div>
           </nav>
     </header>
@@ -63,28 +55,32 @@
     <main>
         <div class="container mt-5 mb-5">
             <div class="row">
-                <div class="col-5 mx-auto">
+                <div class="col-12 col-md-6">
+                    <h2 class="text-center mb-5">Kontaktirajte nas</h2>
                     <form action="">
                         <div class="form-group">
                             <label for="tbImePrezime">Ime i prezime:</label>
-                            <input type="text" class="form-control mt-2" id="tbImePrezime" name="imePrezime">
+                            *<input type="text" class="form-control mt-2" id="tbImePrezime" name="imePrezime">
                         </div>
                         <div class="form-group mt-2">
                             <label for="tbEmail">Email:</label>
-                            <input type="text" class="form-control mt-2" id="tbEmail" name="email">
+                            *<input type="text" class="form-control mt-2" id="tbEmail" name="email">
                         </div>
                         <div class="form-group mt-2">
                             <label for="tbBrojTelefona">Broj telefona:</label>
-                            <input type="text" class="form-control mt-2" id="tbBrojTelefona" name="brojTelefona">
+                            *<input type="text" class="form-control mt-2" id="tbBrojTelefona" name="brojTelefona">
                         </div>
                         <div class="form-group mt-2">
                             <label for="taPoruka">Poruka:</label>
-                            <textarea name="poruka" id="taPoruka" cols="30" rows="5" class="form-control"></textarea>
+                            *<textarea name="poruka" id="taPoruka" cols="30" rows="5" class="form-control"></textarea>
                         </div>
                         <div class="form-group text-center mt-3">
                             <button type="button" id="btnPosalji" name="btnPosalji" class="btn btn-dark bojaShimmer">POŠALJI <i class="fas fa-paper-plane ps-2"></i></button>
                         </div>
                     </form>
+                </div>
+                <div class="col-12 col-md-6 text-center">
+                    <img src="assets/images/picture_girl.jpg" alt="devojka pije vino" class="img-fluid" id="slikaKontakt">
                 </div>
             </div>
         </div>

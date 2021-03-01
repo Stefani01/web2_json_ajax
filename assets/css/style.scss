@@ -36,7 +36,7 @@ $purple: #6C4675;
 #navigacija{
     background-color: white;
     img{
-        width: 30%;
+       width: 70%;
     }
     #btnMeni:hover{
         color: $shimmer;
@@ -48,7 +48,7 @@ $purple: #6C4675;
     .active{
         border-bottom: 3px solid $shimmer;
     }
-    #kolicaKupovina, #btnMeni{
+    #kolicaKupovina{
         color: $shimmer;
         font-size: 20px;
         cursor: pointer;
@@ -98,12 +98,12 @@ $purple: #6C4675;
     border-style: double;
     padding: 30px 85px;
     text-shadow: 2px 2px 2px #000;
-    background-color: rgba(0,0,0, 0.5);
+    background-color: rgba(0,0,0,0.5);
 }
 
 #footer{
     border-top: 2px solid $shimmer;
-    #footerLinkoviMeni li a{
+    #footerLinkoviMeni li a, #autor li a{
         color: #000;
     }
     #footerPotpis{
@@ -129,4 +129,9 @@ a:hover{
 #mapa{
     width: 100%;
     height: 400px;
+}
+
+#slikaKontakt{
+    height: 500px;
+    box-shadow: 50px 30px 10px $shimmer;
 }

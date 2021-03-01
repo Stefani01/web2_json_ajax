@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "textLink": "Početna",
+        "hrefLink": "index.html"
+    },
+    {
+        "id": 2,
+        "textLink": "O nama",
+        "hrefLink": "onama.html"
+    },
+    {
+        "id": 3,
+        "textLink": "Proizvodi",
+        "hrefLink": "proizvodi.html"
+    },
+    {
+        "id": 4,
+        "textLink": "Kontakt",
+        "hrefLink": "Kontakt.html"
+    }
+]
