@@ -15,6 +15,10 @@ body {
   color: #E9C490;
 }
 
+.bgShimmer {
+  background-color: #E9C490;
+}
+
 #traka a {
   color: #E9C490;
 }
@@ -147,5 +151,14 @@ a:hover {
   height: 500px;
   -webkit-box-shadow: 50px 30px 10px #E9C490;
           box-shadow: 50px 30px 10px #E9C490;
+}
+
+img.slikaKartica {
+  width: 5%;
+  margin: 0px auto;
+}
+
+img.logoTekst {
+  width: 20%;
 }
 /*# sourceMappingURL=style.css.map */

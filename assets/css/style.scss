@@ -18,6 +18,9 @@ $purple: #6C4675;
 .bojaShimmer{
     color:$shimmer;
 }
+.bgShimmer{
+    background-color: $shimmer;
+}
 
 #traka{
     a{
@@ -134,4 +137,13 @@ a:hover{
 #slikaKontakt{
     height: 500px;
     box-shadow: 50px 30px 10px $shimmer;
+}
+
+img.slikaKartica{
+    width: 5%;
+    margin: 0px auto;
+}
+
+img.logoTekst{
+    width: 20%;
 }

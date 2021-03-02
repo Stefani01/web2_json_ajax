@@ -3,14 +3,35 @@
         width: 60% !important;
         text-align: center !important;
     }
+    #videoPocetna{
+        width: 350px;
+    }
 }
 
 @media screen and (max-width:492px){
-    /*.navbar-brand{
-        width: 50% !important;
-        text-align: center !important;
-    }*/
     #btnMeni btn, #kolicaKupovina i{
         font-size: 15px;
     }
+}
+
+@media screen and (max-width:400px){
+    .navbar-brand{
+        width: 50% !important;
+    }
+    #videoPocetna{
+        width: 280px;
+    }
+    #kolicaKupovina a{
+        font-size: 15px;
+    }
+    #btnMeni btn{
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width:299px){
+    #videoPocetna{
+        width: 250px;
+    }
+    
 }
