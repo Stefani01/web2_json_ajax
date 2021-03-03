@@ -170,4 +170,20 @@ img.logoTekst {
   -webkit-transform: rotate(8deg);
           transform: rotate(8deg);
 }
+
+.listaPitanja p {
+  display: none;
+  border-left: 1px solid #E9C490;
+  border-bottom: 1px solid #E9C490;
+  border-right: 1px solid #E9C490;
+}
+
+.listaPitanja li {
+  cursor: pointer;
+  border: 1px solid #E9C490 !important;
+}
+
+.listaPitanja .strelicaGore {
+  display: none;
+}
 /*# sourceMappingURL=style.css.map */

@@ -155,3 +155,19 @@ img.logoTekst{
         transform: rotate(8deg);
     }
 }
+
+.listaPitanja{
+    p{
+        display: none;
+        border-left: 1px solid $shimmer;
+        border-bottom: 1px solid $shimmer;
+        border-right: 1px solid $shimmer;
+    }
+    li{
+    cursor: pointer;
+    border: 1px solid $shimmer !important;
+    }
+    .strelicaGore{
+        display: none;
+    }
+}
