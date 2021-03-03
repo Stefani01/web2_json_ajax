@@ -161,4 +161,13 @@ img.slikaKartica {
 img.logoTekst {
   width: 20%;
 }
+
+#oNama {
+  border: 2px solid #E9C490;
+}
+
+#oNama #slika_o_nama {
+  -webkit-transform: rotate(8deg);
+          transform: rotate(8deg);
+}
 /*# sourceMappingURL=style.css.map */

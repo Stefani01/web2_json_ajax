@@ -147,3 +147,11 @@ img.slikaKartica{
 img.logoTekst{
     width: 20%;
 }
+
+#oNama{
+    border: 2px solid $shimmer;
+
+    #slika_o_nama{
+        transform: rotate(8deg);
+    }
+}
