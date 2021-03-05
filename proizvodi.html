@@ -55,8 +55,88 @@
           </nav>
     </header>
     <!-- MAIN -->
-    <main>
-        
+    <main>     
+        <div class="container-fluid mt-5 mb-5">
+            <h2 class="mt-5 mb-5 text-center">Proizvodi</h2>
+            <div class="row mb-2 mb-md-0">
+                <div class="col-10 mx-auto">
+                    <div class="row">
+                        <div class="col d-flex justify-content-end align-items-center align-self-center">
+                            <input type="search" name="" id="" class="form-control" placeholder="Pretraga proizvoda po nazivu">
+                            <i class='fas fa-search ps-2' id='ikonicaSearch'></i>
+                        </div>
+                        <div class="ms-5 col d-none d-md-block mx-auto d-flex align-self-center">
+                            <div id="otvoriSort" class="p-2 rounded">
+                                Sortiraj <i class="fas fa-sort float-end mt-1"></i>
+                            </div>
+                            <div id="sadrzajSort" class="rounded">
+                                <ul class="list-group">
+                                    <li class="list-group-item border-0" data-sort="desc">
+                                        Cena opadajuce
+                                    </li>
+                                    <li class="list-group-item border-0" data-sort="asc">
+                                        Cena rastuce
+                                    </li>
+                                    <li class="list-group-item border-0" data-sort="a_z">
+                                        Ime proizvoda A-Z
+                                    </li>
+                                    <li class="list-group-item border-0" data-sort="z_a">
+                                        Ime proizvoda Z-A
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col text-end d-flex align-self-center justify-content-end">
+                            <i class="fas fa-th pe-2" id="grid3"></i>
+                            <i class="fas fa-grip-vertical pe-2" id="grid2"></i>
+                            <img src="https://img.icons8.com/ios-filled/100/000000/activity-grid--v2.png" id="grid4"/>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="row d-md-none">
+                <div class="col-12 col-sm-8 mx-auto">
+                    <div id="otvoriFilter" class="bgShimmer p-2">
+                        <i class="fas fa-filter pe-3"></i>
+                        Filter
+                        <i class="fas fa-chevron-down float-end mt-1"></i>
+                        <i class="fas fa-chevron-up float-end strelicaGore mt-1"></i>
+                    </div>
+                    <div id="miniIspisFiltera" class="rounded p-3">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-8 mt-2 mx-auto">
+                    <div id="otvoriSort" class="p-2">
+                        Sortiraj <i class="fas fa-sort float-end mt-1"></i>
+                    </div>
+                    <div id="sadrzajSort" class="rounded">
+                        <ul class="list-group">
+                            <li class="list-group-item border-0">
+                                Cena opadajuce
+                            </li>
+                            <li class="list-group-item border-0">
+                                Cena rastuce
+                            </li>
+                            <li class="list-group-item border-0">
+                                Ime proizvoda A-Z
+                            </li>
+                            <li class="list-group-item border-0">
+                                Ime proizvoda Z-A
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-5 mb-5">
+                <div class="col-2 d-none d-md-block p-3" id="ispisFiltera">
+                </div>
+                <div class="col-10 border rounded">
+                    <div class="row" id="ispisProizvoda">
+                        
+                    </div>
+                </div>
+            </div>
     </main>
     <!-- FOOTER -->
     <footer>

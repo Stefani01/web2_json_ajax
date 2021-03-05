@@ -183,7 +183,52 @@ img.logoTekst {
   border: 1px solid #E9C490 !important;
 }
 
-.listaPitanja .strelicaGore {
+.strelicaGore {
   display: none;
+}
+
+#miniIspisFiltera, #sadrzajSort {
+  display: none;
+  border-left: 1px solid #E9C490;
+  border-bottom: 1px solid #E9C490;
+  border-right: 1px solid #E9C490;
+  cursor: pointer;
+}
+
+#otvoriFilter, #otvoriSort {
+  cursor: pointer;
+}
+
+#otvoriFilter {
+  color: white;
+}
+
+#otvoriSort {
+  border: 1px solid #E9C490;
+}
+
+img#grid4 {
+  width: 20px;
+  cursor: pointer;
+  display: none;
+}
+
+#grid2, #grid3, #ikonicaSearch {
+  font-size: 20px;
+  cursor: pointer;
+}
+
+input[type=search] {
+  display: block;
+  border: 1px solid #E9C490 !important;
+}
+
+#ddlSort {
+  border: 1px solid #E9C490;
+  outline: none !important;
+}
+
+input:focus {
+  background-color: rgba(0, 0, 0, 0) !important;
 }
 /*# sourceMappingURL=style.css.map */

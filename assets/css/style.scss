@@ -167,7 +167,55 @@ img.logoTekst{
     cursor: pointer;
     border: 1px solid $shimmer !important;
     }
-    .strelicaGore{
-        display: none;
-    }
+    
 }
+
+.strelicaGore{
+        display: none;
+}
+
+#miniIspisFiltera, #sadrzajSort{
+    display: none;
+    border-left: 1px solid $shimmer;
+    border-bottom: 1px solid $shimmer;
+    border-right: 1px solid $shimmer;
+    cursor: pointer;
+}
+
+#otvoriFilter, #otvoriSort{
+    cursor: pointer;
+}
+
+#otvoriFilter{
+    color: white;
+}
+
+#otvoriSort{
+    border: 1px solid $shimmer;
+}
+
+img#grid4{
+    width: 20px;
+    cursor: pointer;
+    display: none;
+}
+
+#grid2, #grid3, #ikonicaSearch{
+    font-size: 20px;
+    cursor: pointer;
+}
+
+input[type=search]{
+    display: block;
+    border: 1px solid $shimmer !important;
+}
+
+#ddlSort{
+    border: 1px solid $shimmer;
+    outline: none !important;
+}
+
+input:focus{
+    background-color:rgba(0,0,0, 0) !important;
+}
+
