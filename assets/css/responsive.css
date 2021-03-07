@@ -12,6 +12,10 @@
     #btnMeni btn, #kolicaKupovina i{
         font-size: 15px;
     }
+
+    #modal{
+        width: 80% !important;
+    }
 }
 
 @media screen and (max-width:400px){

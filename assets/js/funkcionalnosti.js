@@ -1,3 +1,7 @@
+$(window).on("load", function(){
+    $(".loader").fadeToggle("slow");
+})
+
 $(document).ready(function(){
 
     $("#btnMeni").click(function(){
@@ -42,3 +46,6 @@ $(".karticaZasto").hover(function(){
 
 })
 
+$("#modalX").click(function(){
+    $("#modal-bg").removeClass("modal_active");
+});

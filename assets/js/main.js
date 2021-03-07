@@ -5,28 +5,22 @@ let nizGrid = Array("#grid2", "#grid3", "#grid4");
 let gridKlasa = Array(6, 4, 3);
 
 let objProizvodi = getLocaleStorage("proizvodi");
-let provera_proizvodiNaPopustu = false;
-let provera_paketProizvodi = false;
-let provera_filterProizvodiPoKat = false;
 
 window.onload = function(){
-    var proizvodiNaPopustuObj, paketProizvodiObj, proizvodiPoKategorijamaObj;
 
-    if(getLocaleStorage("proizvodiNaPopustu")){
-        provera_proizvodiNaPopustu = true;
-        proizvodiNaPopustuObj = getLocaleStorage("proizvodiNaPopustu");
+    if(window.location.pathname == "/prikazProizvoda.html"){
+        var url = window.location.href;
+        var id = Number(url.substring(url.indexOf('=')+1));
+        var proizvodPoID = objProizvodi.filter(el => el.id == id);
+        ispisiProizvodPoID(proizvodPoID,id);
     }
 
-    if(getLocaleStorage("paketProizvodi")){
-        provera_paketProizvodi = true;
-        paketProizvodiObj = getLocaleStorage("paketProizvodi");
-    }
-
-    if(getLocaleStorage("filterProizvodiPoKategorijama")){
-        provera_filterProizvodiPoKat = true;
-        proizvodiPoKategorijamaObj = getLocaleStorage("filterProizvodiPoKategorijama");
-    }
-
+    $(document).on("click", ".prikazProizvodaPoID", function(){
+        let id = $(this).data("id");
+        let proizvod = objProizvodi.filter(el => el.id == id);
+        console.log(proizvod);
+        ispisiProizvodPoID(proizvod);
+    })
 
     ajaxFunction("meni", "get", function(data){
         nizIdIspisMenija.forEach(el => {
@@ -41,6 +35,7 @@ window.onload = function(){
     ajaxFunction("proizvodKategorija", "get", function(data){
         setLocaleStorage("proizvodKategorija", data);
         var kategorije = getLocaleStorage("kategorije");
+
         nizIdIspisKategorija.forEach(el => {
             ispisiKateogorijeProizvoda(kategorije, data, el);
         });
@@ -48,15 +43,90 @@ window.onload = function(){
 
     ajaxFunction("proizvodi", "get", function(data){
         setLocaleStorage("proizvodi", data);
-        ispisProizvoda(data, "3");
+        ispisProizvoda(data, "3", "#ispisProizvoda");
+       // randomPrikazProizvoda(data);  
     })
 
     ispisListeZaSortiranje();
     klikIspisProizvoda(nizGrid, gridKlasa);
 
+    ajaxFunction("popust", "get", function(data){
+        setLocaleStorage("popust", data);
+    })
+
    
 }
 
+function ispisiProizvodPoID(proizvod){
+
+    let html ="";
+    for(let p of proizvod){
+        html += `
+        <div class="col-12 col-md-6 text-center align-self-center">
+            <img src="assets/images/${p.slika}" class="figure-img img-fluid h-100 rounded" alt="${p.opis}">
+        </div>
+        <div class="col-12 col-md-6">
+            <h2 class="text-center">${p.naziv}</h2>
+            <p class="text-center">${p.opis}</p>
+            ${obradaCeneIPopusta(p.popust, p.cena)}
+            <p class="text-end">Količina: 
+                <span class="ps-5 pe-2 smanji">-</span>
+                    <span><input type="text" id="iznos" value="1"/></span>
+                <span class="povecaj ps-2">+</span>
+            </p>
+            <button class="btn btn-dark bojaShimmer mb-3 ms-auto d-block" data-idKorpa="${proizvod.id}">
+                <i class="fas fa-shopping-cart me-2"></i>Dodaj u korpu
+            </button>
+        </div>`;
+    } 
+    $("#prikazPoID").html(html);
+}
+
+/* PROVERA UNOSA KOLICINE PROIZVODA */
+$(document).on("click", ".povecaj", function(){
+    var iznos = Number($("#iznos").val());
+    var vratiIznos = iznos+1;
+    if(vratiIznos > 1){
+        $(".smanji").show();
+    }
+    $("#iznos").val(vratiIznos);
+})
+
+$(document).on("click", ".smanji", function(){
+    var iznos = Number($("#iznos").val());
+    var vratiIznos = iznos-1;
+    if(vratiIznos == 1){
+        $(".smanji").hide();
+    }
+    $("#iznos").val(vratiIznos);
+})
+
+$(document).on("blur", "#iznos", function(){
+    var vrednost = $(this).val();
+    if(Number(vrednost) < 1){
+        $(this).val(1);
+    }
+})
+
+/* FUNKCIJA ZA RANDOM PRIKAZ PROIZVODA */
+function randomPrikazProizvoda(proizvodi){
+    var broj = [];
+    let proizvodiFilter;
+    for(let i=0; i<10; i++){
+        broj.push(Math.floor((Math.random()*24)+1));
+    }
+    
+    proizvodiFilter = proizvodi.filter(function(el){
+        for(let b of broj){
+            if(b == el.id){
+                return true;
+            }
+        }
+    });
+    ispisProizvoda(proizvodiFilter, "2", "#topProizvodi");
+}
+
+/* FUNKCIJA ZA POZIVANJE AJAX-A */
 function ajaxFunction(path,method, result){
 
     $.ajax({
@@ -70,6 +140,7 @@ function ajaxFunction(path,method, result){
     })
 }
 
+/* FUNKCIJE ZA LOCALE STORAGE */
 function setLocaleStorage(name, value){
     localStorage.setItem(name, JSON.stringify(value));
 }
@@ -82,6 +153,7 @@ function removeLocaleStorage(name){
     localStorage.removeItem(name);
 }
 
+/* FUNKCIJA ZA ISPIS MENIJA */
 function ispisMenija(meni, deoStrane){
     let html = "";
     for(let m of meni){
@@ -93,42 +165,38 @@ function ispisMenija(meni, deoStrane){
     $(deoStrane).html(html);
 }
 
-/*
-function izdvoji(data){
-    
-    return data.map((el) => {
-        return{
-
-        }
-    })
-}
-*/
-
+/* FUNKCIJA ZA ISPIS KATEGORIJA */
 function ispisiKateogorijeProizvoda(kat, katProizvod, deoStrane){
     let html = "";
 
     kat.forEach(k => {
         let katPoId = katProizvod.filter(el => el.idKat == k.id);
         html += `<h5 class="text-center pt-2 pb-2">${k.naziv}</h5>
-            ${chbFilterKategorije(katPoId)}`;      
+            ${chbFilterKategorije(katPoId)} `; 
+            
     });
-
-    html += `<div class="mt-5 mb-5 border-top border-bottom p-2">
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="truePaketi" name="paket">
-                    <label class="form-check-label" for="truePaketi">Paket proizvodi</label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="truePopust" name="popust">
-                    <label class="form-check-label" for="trueAkcija">Na popustu</label>
-                </div>
-            </div>`;
+    html += chbFilterPaketAkcija();
 
     $("[name='paket']").click(filtrirajPoPaketima);
     $("[name='popust']").click(filtrirajPoPopustu);
-    $("[name='kategorije']").click(filterPoKategorijama);
-    $(deoStrane).html(html);
     
+    $(deoStrane).html(html);
+    $("[name='kategorije']").click(filterPoKategorijama);
+    
+}
+
+function chbFilterPaketAkcija(){
+    let html = `<div class="mt-5 mb-5 border-top border-bottom p-2">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="truePaketi" name="paket">
+                        <label class="form-check-label" for="truePaketi">Paket proizvodi</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="truePopust" name="popust">
+                        <label class="form-check-label" for="trueAkcija">Na popustu</label>
+                    </div>
+                </div>`;
+    return html;
 }
 
 function chbFilterKategorije(katPoId){
@@ -140,10 +208,11 @@ function chbFilterKategorije(katPoId){
             <label class="form-check-label" for="${kp.id}">${kp.naziv}</label>
         </div>`;
     }
-
+    
     return html;
 }
 
+/* FUNKCIJA ZA ISPIS DDL ZA SORTIRANJE */
 function ispisListeZaSortiranje(){
     let html = `<option value="0">Sortiraj</option>
     <option value="asc">Cena rastuće</option>
@@ -153,10 +222,11 @@ function ispisListeZaSortiranje(){
     $(".ispisiSort").html(html);
 }
 
+/* FUNKCIJA ZA SORTIRANJE */
 $(document).on("change", ".ispisiSort", function(){
     let vrednost = $(this).val();
     let sortiraniProizvodi;
-
+    
     if(vrednost == 0){
         sortiraniProizvodi = getLocaleStorage("proizvodi");
     }
@@ -196,24 +266,24 @@ $(document).on("change", ".ispisiSort", function(){
             }
         })
     }
-
-    ispisProizvoda(sortiraniProizvodi, "3");
     
+    ispisProizvoda(sortiraniProizvodi, "3", "#ispisProizvoda");
 })
 
-function ispisProizvoda(proizvodi, klasaPrikaz){
+/* FUNCKIJA ZA ISPIS PROIZVODA */
+function ispisProizvoda(proizvodi, klasaPrikaz, deoStrane){
     let html = "";
 
     for(let proizvod of proizvodi){
         html += `   
-        <div class="col-12 col-md-6 col-lg-${klasaPrikaz} mb-3">
-            <a href="prikazProizvoda.html" data-id="${proizvod.id}" class="text-decoration-none link-dark">
+        <div class="col-12 col-sm-6 col-lg-${klasaPrikaz} mb-3">
+            <a href="prikazProizvoda.html?id=${proizvod.id}" data-id="${proizvod.id}" class="text-decoration-none link-dark prikazProizvodaPoID">
                 <figure class="figure d-flex flex-column align-content-end">
                     <img src="assets/images/${proizvod.slika}" class="figure-img img-fluid h-100 rounded" alt="${proizvod.opis}">
                     <figcaption class="figure-caption text-dark">
                         <h2 class="m-0">${proizvod.naziv}</h2>
                         <p class="mt-2">${proizvod.opis}</p>
-                        <h5 class="text-center mb-3">${proizvod.cena}</h5>
+                        ${obradaCeneIPopusta(proizvod.popust, proizvod.cena)}
                         <button class="btn btn-dark bojaShimmer mb-3 d-block mx-auto" data-idKorpa="${proizvod.id}">
                             <i class="fas fa-shopping-cart me-2"></i>Dodaj u korpu
                         </button>
@@ -223,9 +293,50 @@ function ispisProizvoda(proizvodi, klasaPrikaz){
         </div>`;
     }
 
-    $("#ispisProizvoda").html(html);
+   
+    $(deoStrane).html(html);
 }
 
+/* FUNKCIJA ZA OBRADU CENE I POPUSTA */
+function obradaCeneIPopusta(idPopust, cena){
+    let html = "";
+
+    if(idPopust == 0){
+        html += `<h5 class="text-center mb-3">${prikazCena(cena)}</h5>`;
+    }
+    else{
+        let popust = getLocaleStorage("popust");
+        let cenaSaPopustom;
+        for(let p of popust){
+           if(idPopust == p.id){
+            cenaSaPopustom = cena-(cena*p.iznos)/100;
+           }
+        }
+        html += `<h5 class="text-center mb-3"><del>${prikazCena(cena)}<del></h5>
+        <h5 class="text-center mb-3">${prikazCena(cenaSaPopustom)}</h5>`;
+    }
+
+    return html;
+}
+
+/* FUNKCIJA ZA PRIKAZ CENA */
+function prikazCena(cena){
+    let ispis = "";
+    let cenaustring = String(cena);
+
+    if(cenaustring.length == 3){
+        ispis = cenaustring.substring(0,3)+",00 RSD";
+    }
+    if(cenaustring.length == 4){
+        ispis = cenaustring.substring(0,1)+"."+cenaustring.substring(1)+",00 RSD";
+    }
+    if(cenaustring.length == 6){
+        ispis = cenaustring.substring(0,1)+"."+cenaustring.substring(1,4)+","+cenaustring.substring(5)+"0 RSD";
+    }
+    return ispis;
+}
+
+/* FUNKCIJE ZA PRIKAZ PROIZVODA PO GRIDU */
 function klikIspisProizvoda(nizGrid, gridKlasa){
     for(let i=0; i<nizGrid.length;i++){
         dodeliAkciju(nizGrid[i], gridKlasa[i]);
@@ -240,78 +351,125 @@ function dodeliAkciju(grid, klasa){
         else{
             $("#grid4").show();
         }
-
-    
-        if(provera_proizvodiNaPopustu){
-            ispisProizvoda(proizvodiNaPopustuObj, klasa);
-        }
-        if(provera_paketProizvodi){
-            ispisProizvoda(paketProizvodiObj, klasa);
-        }
-        if(provera_filterProizvodiPoKat){
-            ispisProizvoda(proizvodiPoKategorijamaObj, klasa);
-        }
-        ispisProizvoda(objProizvodi, klasa);
+        
+        ispisProizvoda(objProizvodi, klasa, "#ispisProizvoda");
     })
 }
 
-
+/* FUNKCIJA ZA PRETRAGU */
 $(document).on("keyup","#inputSearch", function(){
     let upisano = $(this).val();
-    let filtriranoPoUpisu = objProizvodi.filter(p => p.naziv.toLowerCase().indexOf(upisano.toLowerCase()) != -1);
+    let proizvodi = getLocaleStorage("proizvodi");
+    let filtriranoPoUpisu = proizvodi.filter(p => p.naziv.toLowerCase().indexOf(upisano.toLowerCase()) != -1);
 
     if(filtriranoPoUpisu.length == 0){
-        ispisProizvoda(objProizvodi, "3");
+        ispisProizvoda(proizvodi, "3", "#ispisProizvoda");
     }
     else{
-        ispisProizvoda(filtriranoPoUpisu, "3");
+        ispisProizvoda(filtriranoPoUpisu, "3", "#ispisProizvoda");
     }
     
 })
 
+/* FILTRIRANJE PO PAKETIMA */
 function filtrirajPoPaketima(){
     let filter_paketProizvodi = [];
+    let proizvodi = getLocaleStorage("proizvodi");
 
     if($("input[name='paket']").is(":checked")){
-        filter_paketProizvodi = objProizvodi.filter(p => p.paket);
+        filter_paketProizvodi = proizvodi.filter(p => p.paket);
     }
     else{
-        filter_paketProizvodi = objProizvodi;
+        filter_paketProizvodi = proizvodi;
     }
-    setLocaleStorage("paketProizvodi", filter_paketProizvodi);
-    ispisProizvoda(filter_paketProizvodi, "3");
+    //setLocaleStorage("paketProizvodi", filter_paketProizvodi);
+    ispisProizvoda(filter_paketProizvodi, "3", "#ispisProizvoda");
 }
 
+/* FILTRIRANJE PO AKCIJAMA */
 function filtrirajPoPopustu(){
     let filter_proizvodiNaPopustu = [];
+    let proizvodi = getLocaleStorage("proizvodi");
+
     if($("input[name='popust']").is(":checked")){
-        filter_proizvodiNaPopustu = objProizvodi.filter(p => p.popust == 0);
+        filter_proizvodiNaPopustu = proizvodi.filter(p => p.popust != 0);
     }
     else{
-        filter_proizvodiNaPopustu = objProizvodi;
+        filter_proizvodiNaPopustu = proizvodi;
     }
-    setLocaleStorage("proizvodiNaPopustu", filter_proizvodiNaPopustu);
-    ispisProizvoda(filter_proizvodiNaPopustu, "3");
+   // setLocaleStorage("proizvodiNaPopustu", filter_proizvodiNaPopustu);
+    ispisProizvoda(filter_proizvodiNaPopustu, "3", "#ispisProizvoda");
 }
 
+/* FILTRIRANJE PO KATEGORIJAMA */
 function filterPoKategorijama(){
+    let proizvodi = getLocaleStorage("proizvodi");
     let cekirano = [];
+
     $.each($("input[name='kategorije']:checked"), function(){
         cekirano.push($(this).val());
     });
     
-    let proizvodiPoKategorijama = objProizvodi.filter(function(el){
+    let proizvodiPoKategorijama = proizvodi.filter(function(el){
         for(let cek of cekirano){
             if(cek == el.katProizvod){
                 return true;
             }
         }
     })
-
+    console.log(proizvodiPoKategorijama);
     if(proizvodiPoKategorijama.length == 0){
-        proizvodiPoKategorijama = objProizvodi
+        proizvodiPoKategorijama = proizvodi;
     }
     
-    ispisProizvoda(proizvodiPoKategorijama, "3");
-    setLocaleStorage("filterProizvodiPoKategorijama", proizvodiPoKategorijama);
+    ispisProizvoda(proizvodiPoKategorijama, "3", "#ispisProizvoda");
+    //setLocaleStorage("filterProizvodiPoKategorijama", proizvodiPoKategorijama);
 }
+
+/* FORMA */
+$("#btnPosalji").click(function(){
+    let imePrezime, email, poruka, brojGresaka;
+
+    imePrezime = document.querySelector("#tbImePrezime");
+    email = document.querySelector("#tbEmail");
+    poruka = document.querySelector("#taPoruka");
+    brojGresaka = 0;
+
+    let regImePrezime = /^[A-Z][a-z]{2,10}(\s[A-Z][a-z]{2,10})+$/;
+    let regEmail = /^^([a-z]{3,15}([\.\_\-]?[a-z0-9]{2,15})*)\@([a-z]{3,10}(\.[a-z]{2,3})+)$/;
+    
+    if(!$(imePrezime).val().match(regImePrezime)){
+        brojGresaka ++;
+        $(imePrezime).next().html(`<p class="bg-light text-dark borderShimmer p-1 mt-1 rounded">Uneta vrednost za ime i prezime nije validna !</p>`);
+    }
+    else{
+        $(imePrezime).next().html("");
+        $(imePrezime).val("");
+    }
+
+    if(!$(email).val().match(regEmail)){
+        brojGresaka ++;
+        $(email).next().html(`<p class="bg-light text-dark borderShimmer p-1 mt-1 rounded">Uneta email adresa nije validna!</p>`);
+    }
+    else{
+        $(email).next().html("");
+        $(email).val("");
+    }
+
+    if($(poruka).val().length == 0){
+        brojGresaka ++;
+        $(poruka).next().html(`<p class="bg-light text-dark borderShimmer p-1 mt-1 rounded">Polje za poruku ne sme biti prazno!</p>`);
+    }
+    else{
+        $(poruka).next().html("");
+        $(poruka).val("");
+    }
+
+    if(brojGresaka == 0){
+        $("#modal-bg").addClass("modal_active");
+    }
+})
+
+
+
+

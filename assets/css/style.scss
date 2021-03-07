@@ -21,6 +21,9 @@ $purple: #6C4675;
 .bgShimmer{
     background-color: $shimmer;
 }
+.borderShimmer{
+    border: 2px solid $shimmer;
+}
 
 #traka{
     a{
@@ -154,6 +157,7 @@ img.logoTekst{
     #slika_o_nama{
         transform: rotate(8deg);
     }
+    
 }
 
 .listaPitanja{
@@ -217,16 +221,107 @@ input.form-check-input:checked{
     border-color: rgba(0,0,0,0.5);
 }
 
-/*
-#ispisFiltera.row{
-    display: table !important;
-    [class*='col-']{
-        float: none;
-        display: table-cell;
-    }
+
+/* loader */
+
+.ball-clip-rotate-multiple{
+    position: relative;
 }
 
-.jednako{
-    height: auto !important;
+.ball-clip-rotate-multiple>div{
+    position: absolute;
+    left: -20px;
+    top: -20px;
+    border: 2px solid #fff;
+    border-bottom-color: transparent;
+    border-top-color: transparent;
+    border-radius: 100%;
+    height: 35px;
+    width: 35px;
+    -webkit-animation: rotate 1s 0s ease-in-out infinite;
+    animation: rotate 1s 0s ease-in-out infinite;
 }
-*/
+.ball-clip-rotate-multiple>div:last-child {
+    display: inline-block;
+    top: -10px;
+    left: -10px;
+    width: 15px;
+    height: 15px;
+    -webkit-animation-duration: .5s;
+    animation-duration: .5s;
+    border-color: #fff transparent;
+    -webkit-animation-direction: reverse;
+    animation-direction: reverse;
+}
+
+@keyframes rotate{
+    0% {
+        -webkit-transform: rotate(0) scale(1);
+        transform: rotate(0) scale(1);
+    }
+    50% {
+        -webkit-transform: rotate(180deg) scale(.6);
+        transform: rotate(180deg) scale(.6);
+    }
+    100% {
+        -webkit-transform: rotate(360deg) scale(1);
+        transform: rotate(360deg) scale(1);
+    }
+    
+    
+}
+
+.loader{
+    position: fixed;
+    z-index: 10000;
+    background-color: $shimmer;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* modal */
+#modal-bg{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 1s, opacity 1s;
+        #modalX{
+            cursor: pointer;
+        }
+
+        #modal{
+            width: 40%;
+        }
+}
+
+.modal_active{
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+
+#iznos{
+    width: 30px;
+    text-align: center;
+}
+
+.smanji, .povecaj{
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.smanji{
+    display: none;
+}

@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="ikonica.ico" type="image/x-icon">
+    <meta name="keywords" content="LA Piel, kozmetika, prirodna kozmetika, rucna proizvodnja, Lana Jurcevicc"/>
+    <meta name="description" content="Prirodna kozmetika La PIEL je brend koji je osnovala Lana Jurčević. Prirodna kozmetika bez parabena, silikona, parafina, bez štetnih supstanci. Ručna proizvodnja i proizvodi nisu testirani na životinjama. U ponudi ćete naći: piling za telo, mleko za telo, ...">
     <title>LA PIEL | prirodna kozmetika</title>
     <!-- FONT AWESOME -->
     <script src="https://kit.fontawesome.com/f444f10db0.js" crossorigin="anonymous"></script>
@@ -15,16 +17,24 @@
     <link rel="stylesheet" href="assets/css/responsive.css" type="text/css">
 </head>
 <body>
+    <div class="loader">
+        <div class="ball-clip-rotate-multiple">
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <div class="loader-inner ball-pulse"></div>
     <!-- HEADER -->
     <header class="sticky-top shadow-lg">
         <div class="container-fluid bg-dark" id="traka">
             <div class="container">
                 <div class="row">
                     <div class="col-12 col-md-3 text-center">
-                        <a href="" class="text-decoration-none"><i class="far fa-envelope"></i> | lapiel&#64gmail.com</a>
+                        <a href="mailto:lapel@gmail.com" class="text-decoration-none"><i class="far fa-envelope"></i> | lapiel&#64gmail.com</a>
                     </div>
                     <div class="col-12 col-md-6 text-center">
-                        <span class="bojaShimmer" id="info">Besplatna isporuka za porudžbine preko 5000 RSD</span>
+                        <span class="bojaShimmer" id="info">Besplatna isporuka za porudžbine preko 5.000,00 RSD</span>
                     </div>
                     <div class="col-12 col-md-3 text-center">
                         <a href="https://www.facebook.com/mylapiel" class="text-decoration-none"><i class="fab fa-facebook-f"></i></a>
@@ -71,10 +81,17 @@
         <section>
              <div class="container mt-5 mb-5">
                 <div class="row">
-                    <div class="col-8 mx-auto">
+                    <div class="col-12">
                         <h2 class="text-center mt-5 mb-5">Top proizvodi</h2>
+                        <div class="container-fluid">
+                            <div class="row" id="topProizvodi">
+                                
+                            </div>
+                        </div>
                         <div class="text-center">
-                            <a href="proizvodi.html" class="btn btn-dark bojaShimmer">Svi proizvodi <i class="fas fa-angle-double-right ms-2"></i></a>
+                            <a href="proizvodi.html" class="btn btn-dark bojaShimmer">
+                                Svi proizvodi <i class="fas fa-angle-double-right ms-2"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -108,7 +125,7 @@
                                 <i class="fas fa-truck card-img-top mt-2 mb-2"></i>
                                 <div class="card-body">
                                   <h4 class="card-title mb-3">Besplatna dostava i povraćaj</h4>
-                                  <p class="card-text">Iskoristite besplatnu dostavu za sve porudžbine veće od 5000 RSD, kao i besplatan povraćaj uz garanciju od 90 dana.</p>
+                                  <p class="card-text">Iskoristite besplatnu dostavu za sve porudžbine veće od 5.000,00 RSD, kao i besplatan povraćaj uz garanciju od 90 dana.</p>
                                 </div>
                             </div>
                         </div>
@@ -171,6 +188,7 @@
                 </div>
             </div>
         </section>
+        
     </main>
     <!-- FOOTER -->
     <footer>
@@ -204,7 +222,7 @@
                                 <a href="#" class="text-decoration-none">Dokumentacija</a>
                             </li>
                             <li class="list-group-item border-0">
-                                <a href="#" class="text-decoration-none">O autoru</a>
+                                <a href="https://stefanisimic5019.netlify.app/" class="text-decoration-none">O autoru</a>
                             </li>
                             <li class="list-group-item border-0">
                                 <a href="#" class="text-decoration-none">Sitemap</a>
@@ -224,7 +242,9 @@
     </footer>
 
     <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="assets/js/lightbox.js"></script>
     <script type="text/javascript" src="assets/js/main.js"></script>
     <script type="text/javascript" src="assets/js/funkcionalnosti.js"></script>
+    
 </body>
 </html>
