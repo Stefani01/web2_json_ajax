@@ -62,29 +62,12 @@
                 <div class="col-10 mx-auto">
                     <div class="row">
                         <div class="col d-flex justify-content-end align-items-center align-self-center">
-                            <input type="search" name="" id="" class="form-control" placeholder="Pretraga proizvoda po nazivu">
+                            <input type="search" id="inputSearch" class="form-control" placeholder="Pretraga proizvoda po nazivu">
                             <i class='fas fa-search ps-2' id='ikonicaSearch'></i>
                         </div>
                         <div class="ms-5 col d-none d-md-block mx-auto d-flex align-self-center">
-                            <div id="otvoriSort" class="p-2 rounded">
-                                Sortiraj <i class="fas fa-sort float-end mt-1"></i>
-                            </div>
-                            <div id="sadrzajSort" class="rounded">
-                                <ul class="list-group">
-                                    <li class="list-group-item border-0" data-sort="desc">
-                                        Cena opadajuce
-                                    </li>
-                                    <li class="list-group-item border-0" data-sort="asc">
-                                        Cena rastuce
-                                    </li>
-                                    <li class="list-group-item border-0" data-sort="a_z">
-                                        Ime proizvoda A-Z
-                                    </li>
-                                    <li class="list-group-item border-0" data-sort="z_a">
-                                        Ime proizvoda Z-A
-                                    </li>
-                                </ul>
-                            </div>
+                            <select  id="ddlSortiraj" class="form-select ispisiSort">
+                            </select>
                         </div>
                         <div class="col text-end d-flex align-self-center justify-content-end">
                             <i class="fas fa-th pe-2" id="grid3"></i>
@@ -107,33 +90,15 @@
                     </div>
                 </div>
                 <div class="col-12 col-sm-8 mt-2 mx-auto">
-                    <div id="otvoriSort" class="p-2">
-                        Sortiraj <i class="fas fa-sort float-end mt-1"></i>
-                    </div>
-                    <div id="sadrzajSort" class="rounded">
-                        <ul class="list-group">
-                            <li class="list-group-item border-0">
-                                Cena opadajuce
-                            </li>
-                            <li class="list-group-item border-0">
-                                Cena rastuce
-                            </li>
-                            <li class="list-group-item border-0">
-                                Ime proizvoda A-Z
-                            </li>
-                            <li class="list-group-item border-0">
-                                Ime proizvoda Z-A
-                            </li>
-                        </ul>
-                    </div>
+                    <select name="" id="ddlSortirajMini" class="form-select ispisiSort">
+                    </select>
                 </div>
             </div>
             <div class="row mt-5 mb-5">
-                <div class="col-2 d-none d-md-block p-3" id="ispisFiltera">
+                <div class="col-3 d-none d-md-block p-4" id="ispisFiltera">
                 </div>
-                <div class="col-10 border rounded">
-                    <div class="row" id="ispisProizvoda">
-                        
+                <div class="col-12 col-md-9 border rounded">
+                    <div class="row p-3" id="ispisProizvoda">
                     </div>
                 </div>
             </div>

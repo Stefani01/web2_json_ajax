@@ -218,17 +218,29 @@ img#grid4 {
   cursor: pointer;
 }
 
-input[type=search] {
-  display: block;
-  border: 1px solid #E9C490 !important;
+.form-control:focus, .form-select:focus {
+  border-color: #E9C490 !important;
+  outline: 0;
+  -webkit-box-shadow: none !important;
+  box-shadow: none !important;
 }
 
-#ddlSort {
-  border: 1px solid #E9C490;
-  outline: none !important;
+input.form-check-input:checked {
+  background: #E9C490;
+  border-color: rgba(0, 0, 0, 0.5);
 }
 
-input:focus {
-  background-color: rgba(0, 0, 0, 0) !important;
+/*
+#ispisFiltera.row{
+    display: table !important;
+    [class*='col-']{
+        float: none;
+        display: table-cell;
+    }
 }
+
+.jednako{
+    height: auto !important;
+}
+*/
 /*# sourceMappingURL=style.css.map */

@@ -205,17 +205,28 @@ img#grid4{
     cursor: pointer;
 }
 
-input[type=search]{
-    display: block;
-    border: 1px solid $shimmer !important;
+.form-control:focus, .form-select:focus{
+    border-color: $shimmer !important;
+    outline: 0;
+    -webkit-box-shadow: none !important;
+            box-shadow: none !important;
 }
 
-#ddlSort{
-    border: 1px solid $shimmer;
-    outline: none !important;
+input.form-check-input:checked{
+    background: $shimmer;
+    border-color: rgba(0,0,0,0.5);
 }
 
-input:focus{
-    background-color:rgba(0,0,0, 0) !important;
+/*
+#ispisFiltera.row{
+    display: table !important;
+    [class*='col-']{
+        float: none;
+        display: table-cell;
+    }
 }
 
+.jednako{
+    height: auto !important;
+}
+*/
