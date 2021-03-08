@@ -13,7 +13,8 @@ window.onload = function(){
         var url = window.location.href;
         var id = Number(url.substring(url.indexOf('=')+1));
         var proizvodPoID = objProizvodi.filter(el => el.id == id);
-        ispisiProizvodPoID(proizvodPoID,id);
+        setLocaleStorage("proizvodPoID", proizvodPoID);
+        ispisiProizvodPoID();
     }
 
     $(document).on("click", ".prikazProizvodaPoID", function(){
@@ -56,27 +57,27 @@ window.onload = function(){
 
 }
 
-function ispisiProizvodPoID(proizvod){
-
+function ispisiProizvodPoID(){
+    let proizvod = getLocaleStorage("proizvodPoID");
     let html ="";
     for(let p of proizvod){
         html += `
-        <div class="col-12 col-md-6 text-center align-self-center">
-            <img src="assets/images/${p.slika}" class="figure-img img-fluid h-100 rounded" alt="${p.opis}">
-        </div>
-        <div class="col-12 col-md-6">
-            <h2 class="text-center">${p.naziv}</h2>
-            <p class="text-center">${p.opis}</p>
-            ${obradaCeneIPopusta(p.popust, p.cena)}
-            <p class="text-end">Količina: 
-                <span class="ps-5 pe-2 smanji">-</span>
-                    <span><input type="text" id="iznos" value="1"/></span>
-                <span class="povecaj ps-2">+</span>
-            </p>
-            <button class="btn btn-dark bojaShimmer mb-3 ms-auto d-block" data-idKorpa="${proizvod.id}">
-                <i class="fas fa-shopping-cart me-2"></i>Dodaj u korpu
-            </button>
-        </div>`;
+                <div class="col-12 col-md-6 text-center align-self-center">
+                    <img src="assets/images/${p.slika}" class="figure-img img-fluid h-100 rounded" alt="${p.opis}">
+                </div>
+                <div class="col-12 col-md-6">
+                    <h2 class="text-center">${p.naziv}</h2>
+                    <p class="text-center">${p.opis}</p>
+                    ${obradaCeneIPopusta(p.popust, p.cena)}
+                    <p class="text-end">Količina: 
+                        <span class="ps-5 pe-2 smanji">-</span>
+                            <span><input type="text" id="iznos" value="1"/></span>
+                        <span class="povecaj ps-2">+</span>
+                    </p>
+                    <button class="btn btn-dark bojaShimmer mb-3 ms-auto d-block" data-idKorpa="${proizvod.id}">
+                        <i class="fas fa-shopping-cart me-2"></i>Dodaj u korpu
+                    </button>
+                </div>`;     
     } 
     $("#prikazPoID").html(html);
 }
@@ -309,6 +310,14 @@ function ispisProizvoda(proizvodi, klasaPrikaz, deoStrane){
             <button class="btn btn-dark bojaShimmer mb-3 d-block mx-auto" data-idkorpa="${proizvod.id}" id="btnKorpaDodaj">
                 <i class="fas fa-shopping-cart me-2"></i>Dodaj u korpu
             </button> 
+            <div id="modal-bg-korpa">
+            <div id="modalKorpa" class="borderShimmer bg-light text-dark p-3 rounded">
+                <div class="mb-2 modalX">
+                    <i class="fas fa-times d-flex justify-content-end"></i>
+                </div>
+                <h2 class="text-center p-3 mb-2">Proizvod je dodat u korpu!</h2>
+            </div>
+        </div>
         </div>`;
     }
 
@@ -328,7 +337,7 @@ function obradaCeneIPopusta(idPopust, cena){
         let cenaSaPopustom;
         for(let p of popust){
            if(idPopust == p.id){
-            cenaSaPopustom = cena-(cena*p.iznos)/100;
+                cenaSaPopustom = cena-(cena*p.iznos)/100;
            }
         }
         html += `<h5 class="text-center mb-3"><del>${prikazCena(cena)}<del></h5>
@@ -485,12 +494,13 @@ $("#btnPosalji").click(function(){
     }
 
     if(brojGresaka == 0){
-        $("#modal-bg").addClass("modal_active");
+        modal("#modal-bg");
     }
 })
 
-
+/* KORPA */
 $(document).on("click", "#btnKorpaDodaj", function(){
+    modal("#modal-bg-korpa");
     var vrednost = $(this).data("idkorpa");
     let proizvod = objProizvodi.filter(el => el.id == vrednost);
     
@@ -500,4 +510,10 @@ $(document).on("click", "#btnKorpaDodaj", function(){
     $("#korpaKolicina").html("1");
 })
 
-
+/* FUNKCIJA ZA MODAL */
+function modal(idModal){
+    $(idModal).addClass("modal_active");
+    $(".modalX").click(function(){
+        $(idModal).removeClass("modal_active");
+    })
+}

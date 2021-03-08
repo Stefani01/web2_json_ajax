@@ -42,6 +42,3 @@ $(".karticaZasto").hover(function(){
 
 })
 
-$("#modalX").click(function(){
-    $("#modal-bg").removeClass("modal_active");
-});

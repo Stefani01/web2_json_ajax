@@ -314,7 +314,7 @@ input.form-check-input:checked {
 }
 
 /* modal */
-#modal-bg {
+#modal-bg, #modal-bg-korpa {
   position: fixed;
   top: 0;
   left: 0;
@@ -337,11 +337,11 @@ input.form-check-input:checked {
   transition: visibility 1s, opacity 1s;
 }
 
-#modal-bg #modalX {
-  cursor: pointer;
+#modal-bg .modalX, #modal-bg-korpa .modalX {
+  cursor: pointer !important;
 }
 
-#modal-bg #modal {
+#modal-bg #modal, #modal-bg #modalKorpa, #modal-bg-korpa #modal, #modal-bg-korpa #modalKorpa {
   width: 40%;
 }
 
