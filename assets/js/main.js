@@ -8,14 +8,12 @@ let objProizvodi = getLocaleStorage("proizvodi");
 
 window.onload = function(){
     $(".loader").fadeToggle("slow");
-    
+    /*
     if(window.location.pathname == "/prikazProizvoda.html"){
         var url = window.location.href;
         var id = Number(url.substring(url.indexOf('=')+1));
-        var proizvodPoID = objProizvodi.filter(el => el.id == id);
-        setLocaleStorage("proizvodPoID", proizvodPoID);
-        ispisiProizvodPoID();
-    }
+        
+    }*/
 
     $(document).on("click", ".prikazProizvodaPoID", function(){
         let id = $(this).data("id");
@@ -55,32 +53,11 @@ window.onload = function(){
         setLocaleStorage("popust", data);
     })
 
+    let proizvod = getLocaleStorage("proizvodPoID");
+    console.log(proizvod);
+    ispisiProizvodPoID();
 }
 
-function ispisiProizvodPoID(){
-    let proizvod = getLocaleStorage("proizvodPoID");
-    let html ="";
-    for(let p of proizvod){
-        html += `
-                <div class="col-12 col-md-6 text-center align-self-center">
-                    <img src="assets/images/${p.slika}" class="figure-img img-fluid h-100 rounded" alt="${p.opis}">
-                </div>
-                <div class="col-12 col-md-6">
-                    <h2 class="text-center">${p.naziv}</h2>
-                    <p class="text-center">${p.opis}</p>
-                    ${obradaCeneIPopusta(p.popust, p.cena)}
-                    <p class="text-end">Količina: 
-                        <span class="ps-5 pe-2 smanji">-</span>
-                            <span><input type="text" id="iznos" value="1"/></span>
-                        <span class="povecaj ps-2">+</span>
-                    </p>
-                    <button class="btn btn-dark bojaShimmer mb-3 ms-auto d-block" data-idKorpa="${proizvod.id}">
-                        <i class="fas fa-shopping-cart me-2"></i>Dodaj u korpu
-                    </button>
-                </div>`;     
-    } 
-    $("#prikazPoID").html(html);
-}
 
 /* PROVERA UNOSA KOLICINE PROIZVODA */
 $(document).on("click", ".povecaj", function(){
@@ -131,7 +108,7 @@ function ispisTopProizvoda(proizvodi){
     let html = "";
     for(let p of proizvodi){
         html += `<li>
-            <a href="prikazProizvoda.html?id=${p.id}" data-id="1" class="text-decoration-none link-dark prikazProizvodaPoID text-center">
+            <a href="prikazProizvoda.html" data-id="${p.id}" class="text-decoration-none link-dark prikazProizvodaPoID text-center">
                 <img src="assets/images/${p.slika}" class="rounded d-block mx-auto" alt="${p.alt}">
                 <h4 class="m-0">${p.naziv}</h4>
                 <p class="mt-2">${p.opis}</p>
@@ -145,6 +122,8 @@ function ispisTopProizvoda(proizvodi){
 
     $("#autoplay").html(html);
 }
+
+
 
 /* FUNKCIJA ZA POZIVANJE AJAX-A */
 function ajaxFunction(path,method, result){
@@ -297,7 +276,7 @@ function ispisProizvoda(proizvodi, klasaPrikaz, deoStrane){
     for(let proizvod of proizvodi){
         html += `   
         <div class="col-12 col-sm-6 col-lg-${klasaPrikaz} mb-3">
-            <a href="prikazProizvoda.html?id=${proizvod.id}" data-id="${proizvod.id}" class="text-decoration-none link-dark prikazProizvodaPoID">
+            <a href="prikazProizvoda.html" data-id="${proizvod.id}" class="text-decoration-none link-dark prikazProizvodaPoID">
                 <figure class="figure d-flex flex-column align-content-end">
                     <img src="assets/images/${proizvod.slika}" class="figure-img img-fluid h-100 rounded" alt="${proizvod.opis}">
                     <figcaption class="figure-caption text-dark">
@@ -324,6 +303,41 @@ function ispisProizvoda(proizvodi, klasaPrikaz, deoStrane){
    
     $(deoStrane).html(html);
 }
+
+$(document).on("click", ".prikazProizvodaPoID", function(){
+    var id = $(this).data("id");
+    var proizvodPoID = objProizvodi.filter(el => el.id == id);
+    console.log(proizvodPoID);
+    setLocaleStorage("proizvodPoID", proizvodPoID);
+    //ispisiProizvodPoID();
+})
+
+function ispisiProizvodPoID(){
+    let proizvod = getLocaleStorage("proizvodPoID");
+    console.log(proizvod);
+    let html ="";
+    for(let p of proizvod){
+        html += `
+                <div class="col-12 col-md-6 text-center align-self-center">
+                    <img src="assets/images/${p.slika}" class="figure-img img-fluid h-100 rounded" alt="${p.opis}">
+                </div>
+                <div class="col-12 col-md-6">
+                    <h2 class="text-center">${p.naziv}</h2>
+                    <p class="text-center">${p.opis}</p>
+                    ${obradaCeneIPopusta(p.popust, p.cena)}
+                    <p class="text-end">Količina: 
+                        <span class="ps-5 pe-2 smanji">-</span>
+                            <span><input type="text" id="iznos" value="1"/></span>
+                        <span class="povecaj ps-2">+</span>
+                    </p>
+                    <button class="btn btn-dark bojaShimmer mb-3 ms-auto d-block" data-idKorpa="${proizvod.id}">
+                        <i class="fas fa-shopping-cart me-2"></i>Dodaj u korpu
+                    </button>
+                </div>`;     
+    } 
+    $("#prikazPoID").html(html);
+}
+
 
 /* FUNKCIJA ZA OBRADU CENE I POPUSTA */
 function obradaCeneIPopusta(idPopust, cena){
