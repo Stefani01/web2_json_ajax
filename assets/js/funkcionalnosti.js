@@ -1,9 +1,5 @@
-$(window).on("load", function(){
-    $(".loader").fadeToggle("slow");
-})
-
 $(document).ready(function(){
-
+    
     $("#btnMeni").click(function(){
         $("#meniToggle").slideToggle(1000);
     })

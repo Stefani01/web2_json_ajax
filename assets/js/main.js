@@ -7,7 +7,8 @@ let gridKlasa = Array(6, 4, 3);
 let objProizvodi = getLocaleStorage("proizvodi");
 
 window.onload = function(){
-
+    $(".loader").fadeToggle("slow");
+    
     if(window.location.pathname == "/prikazProizvoda.html"){
         var url = window.location.href;
         var id = Number(url.substring(url.indexOf('=')+1));
@@ -18,7 +19,6 @@ window.onload = function(){
     $(document).on("click", ".prikazProizvodaPoID", function(){
         let id = $(this).data("id");
         let proizvod = objProizvodi.filter(el => el.id == id);
-        console.log(proizvod);
         ispisiProizvodPoID(proizvod);
     })
 
@@ -44,7 +44,7 @@ window.onload = function(){
     ajaxFunction("proizvodi", "get", function(data){
         setLocaleStorage("proizvodi", data);
         ispisProizvoda(data, "3", "#ispisProizvoda");
-       // randomPrikazProizvoda(data);  
+        randomPrikazProizvoda(data);  
     })
 
     ispisListeZaSortiranje();
@@ -54,7 +54,6 @@ window.onload = function(){
         setLocaleStorage("popust", data);
     })
 
-   
 }
 
 function ispisiProizvodPoID(proizvod){
@@ -123,7 +122,27 @@ function randomPrikazProizvoda(proizvodi){
             }
         }
     });
-    ispisProizvoda(proizvodiFilter, "2", "#topProizvodi");
+
+    //ispisTopProizvoda(proizvodiFilter);
+}
+
+function ispisTopProizvoda(proizvodi){
+    let html = "";
+    for(let p of proizvodi){
+        html += `<li>
+            <a href="prikazProizvoda.html?id=${p.id}" data-id="1" class="text-decoration-none link-dark prikazProizvodaPoID text-center">
+                <img src="assets/images/${p.slika}" class="rounded d-block mx-auto" alt="${p.alt}">
+                <h4 class="m-0">${p.naziv}</h4>
+                <p class="mt-2">${p.opis}</p>
+                ${obradaCeneIPopusta(p.popust, p.cena)}
+                <button class="btn btn-dark bojaShimmer mb-3 d-block mx-auto" data-idKorpa="1">
+                    <i class="fas fa-shopping-cart me-2"></i>Dodaj u korpu
+                </button>
+            </a>
+        </li>`;
+    }
+
+    $("#autoplay").html(html);
 }
 
 /* FUNKCIJA ZA POZIVANJE AJAX-A */
@@ -284,12 +303,12 @@ function ispisProizvoda(proizvodi, klasaPrikaz, deoStrane){
                         <h2 class="m-0">${proizvod.naziv}</h2>
                         <p class="mt-2">${proizvod.opis}</p>
                         ${obradaCeneIPopusta(proizvod.popust, proizvod.cena)}
-                        <button class="btn btn-dark bojaShimmer mb-3 d-block mx-auto" data-idKorpa="${proizvod.id}">
-                            <i class="fas fa-shopping-cart me-2"></i>Dodaj u korpu
-                        </button>
                     </figcaption>
                 </figure>
-            </a>   
+            </a>  
+            <button class="btn btn-dark bojaShimmer mb-3 d-block mx-auto" data-idkorpa="${proizvod.id}" id="btnKorpaDodaj">
+                <i class="fas fa-shopping-cart me-2"></i>Dodaj u korpu
+            </button> 
         </div>`;
     }
 
@@ -471,5 +490,14 @@ $("#btnPosalji").click(function(){
 })
 
 
+$(document).on("click", "#btnKorpaDodaj", function(){
+    var vrednost = $(this).data("idkorpa");
+    let proizvod = objProizvodi.filter(el => el.id == vrednost);
+    
+    let prozvodKorpa = {proizvod: proizvod, kolicina: 1};
+    setLocaleStorage("proizvodKorpa", prozvodKorpa);
+
+    $("#korpaKolicina").html("1");
+})
 
 
