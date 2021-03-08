@@ -326,6 +326,12 @@ input.form-check-input:checked{
 }
 
 
+#brojProizvoda{
+    font-size: 20px;
+}
 
-
-
+#prikazPoID{
+    ul li::marker{
+        color: $shimmer;
+    }
+}

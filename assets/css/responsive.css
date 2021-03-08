@@ -14,7 +14,7 @@
         font-size: 15px;
     }
 
-    #modal{
+    #modal, #modal-bg-korpa{
         width: 80% !important;
     }
 }

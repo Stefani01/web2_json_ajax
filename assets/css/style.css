@@ -363,4 +363,12 @@ input.form-check-input:checked {
 .smanji {
   display: none;
 }
+
+#brojProizvoda {
+  font-size: 20px;
+}
+
+#prikazPoID ul li::marker {
+  color: #E9C490;
+}
 /*# sourceMappingURL=style.css.map */

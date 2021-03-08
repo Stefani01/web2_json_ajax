@@ -8,12 +8,6 @@ let objProizvodi = getLocaleStorage("proizvodi");
 
 window.onload = function(){
     $(".loader").fadeToggle("slow");
-    /*
-    if(window.location.pathname == "/prikazProizvoda.html"){
-        var url = window.location.href;
-        var id = Number(url.substring(url.indexOf('=')+1));
-        
-    }*/
 
     $(document).on("click", ".prikazProizvodaPoID", function(){
         let id = $(this).data("id");
@@ -53,11 +47,11 @@ window.onload = function(){
         setLocaleStorage("popust", data);
     })
 
-    let proizvod = getLocaleStorage("proizvodPoID");
-    console.log(proizvod);
-    ispisiProizvodPoID();
-}
+    if(window.location.pathname == "/prikazProizvoda.html"){
+        ispisiProizvodPoID();
+    }
 
+}
 
 /* PROVERA UNOSA KOLICINE PROIZVODA */
 $(document).on("click", ".povecaj", function(){
@@ -124,7 +118,6 @@ function ispisTopProizvoda(proizvodi){
 }
 
 
-
 /* FUNKCIJA ZA POZIVANJE AJAX-A */
 function ajaxFunction(path,method, result){
 
@@ -181,7 +174,6 @@ function ispisiKateogorijeProizvoda(kat, katProizvod, deoStrane){
     
     $(deoStrane).html(html);
     $("[name='kategorije']").click(filterPoKategorijama);
-    
 }
 
 function chbFilterPaketAkcija(){
@@ -300,21 +292,17 @@ function ispisProizvoda(proizvodi, klasaPrikaz, deoStrane){
         </div>`;
     }
 
-   
     $(deoStrane).html(html);
 }
 
 $(document).on("click", ".prikazProizvodaPoID", function(){
     var id = $(this).data("id");
     var proizvodPoID = objProizvodi.filter(el => el.id == id);
-    console.log(proizvodPoID);
     setLocaleStorage("proizvodPoID", proizvodPoID);
-    //ispisiProizvodPoID();
 })
 
 function ispisiProizvodPoID(){
     let proizvod = getLocaleStorage("proizvodPoID");
-    console.log(proizvod);
     let html ="";
     for(let p of proizvod){
         html += `
@@ -324,20 +312,44 @@ function ispisiProizvodPoID(){
                 <div class="col-12 col-md-6">
                     <h2 class="text-center">${p.naziv}</h2>
                     <p class="text-center">${p.opis}</p>
+                    ${dodatanOpis(p.dodatno)}
                     ${obradaCeneIPopusta(p.popust, p.cena)}
                     <p class="text-end">Količina: 
                         <span class="ps-5 pe-2 smanji">-</span>
                             <span><input type="text" id="iznos" value="1"/></span>
                         <span class="povecaj ps-2">+</span>
                     </p>
-                    <button class="btn btn-dark bojaShimmer mb-3 ms-auto d-block" data-idKorpa="${proizvod.id}">
-                        <i class="fas fa-shopping-cart me-2"></i>Dodaj u korpu
-                    </button>
+                    <div class="row">
+                        <div class="col-6">
+                            <a href="proizvodi.html" class="btn btn-light"><i class="fas fa-angle-double-left"></i> Svi proizvodi </a>
+                        </div>
+                        <div class="col-6">
+                            <button class="btn btn-dark bojaShimmer mb-3 ms-auto d-block" data-idKorpa="${p.id}" id="btnKorpaDodaj">
+                                <i class="fas fa-shopping-cart me-2"></i>Dodaj u korpu
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="modal-bg-korpa">
+                    <div id="modalKorpa" class="borderShimmer bg-light text-dark p-3 rounded">
+                        <div class="mb-2 modalX">
+                            <i class="fas fa-times d-flex justify-content-end"></i>
+                        </div>
+                        <h2 class="text-center p-3 mb-2">Proizvod je dodat u korpu!</h2>
+                    </div>
                 </div>`;     
     } 
     $("#prikazPoID").html(html);
 }
 
+function dodatanOpis(opis){
+    let html = "<ul class='mt-4 mb-4'>";
+    for(let i = 0; i < opis.length; i++){
+        html += `<li>${opis[i]}</li>`
+    }
+    html += "</ul>";
+    return html;
+}
 
 /* FUNKCIJA ZA OBRADU CENE I POPUSTA */
 function obradaCeneIPopusta(idPopust, cena){
@@ -393,7 +405,6 @@ function dodeliAkciju(grid, klasa){
         else{
             $("#grid4").show();
         }
-        
         ispisProizvoda(objProizvodi, klasa, "#ispisProizvoda");
     })
 }
@@ -405,12 +416,12 @@ $(document).on("keyup","#inputSearch", function(){
     let filtriranoPoUpisu = proizvodi.filter(p => p.naziv.toLowerCase().indexOf(upisano.toLowerCase()) != -1);
 
     if(filtriranoPoUpisu.length == 0){
-        ispisProizvoda(proizvodi, "3", "#ispisProizvoda");
+        $("#ispisProizvoda").html(`<p class="text-center mt-5 bg-dark bojaShimmer p-2">Traženi proizvod ne postoji!</p>`);
     }
     else{
         ispisProizvoda(filtriranoPoUpisu, "3", "#ispisProizvoda");
     }
-    
+
 })
 
 /* FILTRIRANJE PO PAKETIMA */
@@ -439,7 +450,6 @@ function filtrirajPoPopustu(){
     else{
         filter_proizvodiNaPopustu = proizvodi;
     }
-   // setLocaleStorage("proizvodiNaPopustu", filter_proizvodiNaPopustu);
     ispisProizvoda(filter_proizvodiNaPopustu, "3", "#ispisProizvoda");
 }
 
@@ -459,13 +469,12 @@ function filterPoKategorijama(){
             }
         }
     })
-    console.log(proizvodiPoKategorijama);
+    
     if(proizvodiPoKategorijama.length == 0){
         proizvodiPoKategorijama = proizvodi;
     }
     
     ispisProizvoda(proizvodiPoKategorijama, "3", "#ispisProizvoda");
-    //setLocaleStorage("filterProizvodiPoKategorijama", proizvodiPoKategorijama);
 }
 
 /* FORMA */
@@ -515,14 +524,44 @@ $("#btnPosalji").click(function(){
 /* KORPA */
 $(document).on("click", "#btnKorpaDodaj", function(){
     modal("#modal-bg-korpa");
-    var vrednost = $(this).data("idkorpa");
-    let proizvod = objProizvodi.filter(el => el.id == vrednost);
-    
-    let prozvodKorpa = {proizvod: proizvod, kolicina: 1};
-    setLocaleStorage("proizvodKorpa", prozvodKorpa);
-
-    $("#korpaKolicina").html("1");
+    var id = $(this).data("idkorpa");
+    obradaKorpe(id);
+    //document.querySelector("#brojProizvoda").innerHTML += "1";
+  
 })
+
+function obradaKorpe(id){
+    let korpa = getLocaleStorage("proizvodKorpa");
+    let idKorpa;
+
+    if(korpa){
+        console.log(korpa);
+        for(let k of korpa.proizvod){
+            idKorpa = k.id;
+        }
+
+        if(id == idKorpa){
+            console.log("vec postoji u korpi");
+            // proizvod vec postoji u korpi, samo se povecava njegova kolicina
+        }
+        else{
+            // postoji korpa ali ne i taj proizvod
+            console.log("else")
+        }
+    }
+    else{
+        dodajUKorpu(id);
+        // proizvod se tek dodaje u korpu
+    }
+    
+}
+
+function dodajUKorpu(id){
+    console.log("nov proizvod");
+    let proizvod = objProizvodi.filter(el => el.id == id);
+    let prozvodKorpa = {proizvod: [proizvod], kolicina: 1};
+    setLocaleStorage("proizvodKorpa", prozvodKorpa);
+}
 
 /* FUNKCIJA ZA MODAL */
 function modal(idModal){
