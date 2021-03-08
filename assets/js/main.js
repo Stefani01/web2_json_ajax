@@ -47,10 +47,11 @@ window.onload = function(){
         setLocaleStorage("popust", data);
     })
 
+    /*
     if(window.location.pathname == "/prikazProizvoda.html"){
         ispisiProizvodPoID();
-    }
-
+    }*/
+    ispisiProizvodPoID();
 }
 
 /* PROVERA UNOSA KOLICINE PROIZVODA */
