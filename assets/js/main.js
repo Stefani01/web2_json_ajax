@@ -9,12 +9,6 @@ let objProizvodi = getLocaleStorage("proizvodi");
 $(document).ready(function(){
     var kolicina = 1;
     localStorage.setItem("kolicina", kolicina);
-
-    $(document).on("click", ".prikazProizvodaPoID", function(){
-        var id = $(this).data("id");
-        var proizvodPoID = objProizvodi.filter(el => el.id == id);
-        setLocaleStorage("proizvodPoID", proizvodPoID);
-    })
     
     $(".loader").fadeToggle("slow");
 
@@ -257,6 +251,7 @@ function ispisProizvoda(proizvodi, klasaPrikaz, deoStrane){
 $(document).on("click", ".prikazProizvodaPoID", function(){
     var id = $(this).data("id");
     var proizvodPoID = objProizvodi.filter(el => el.id == id);
+    ispisiProizvodPoID();
     setLocaleStorage("proizvodPoID", proizvodPoID);
 })
 
