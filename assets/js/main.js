@@ -7,6 +7,13 @@ let gridKlasa = Array(6, 4, 3);
 let objProizvodi = getLocaleStorage("proizvodi");
 
 $(document).ready(function(){
+    $("#btnMeni").click(function(){
+        $("#meniToggle").slideToggle(1000);
+    })
+    
+    var nizElKojimaSeDodeljujeAnimacijaSlideToggle = Array("#test", "#slanje", "#kupovina", "#ostecenje", "#proizvod", "#otvoriFilter", "#otvoriSort");
+    dodeliAnimacijuSlideToggle(nizElKojimaSeDodeljujeAnimacijaSlideToggle);
+
     var kolicina = 1;
     localStorage.setItem("kolicina", kolicina);
     
@@ -42,11 +49,21 @@ $(document).ready(function(){
     ajaxFunction("popust", "get", function(data){
         setLocaleStorage("popust", data);
     })
-    ispisiProizvodPoID();
-    osveziKorpu();
+
+    if(getLocaleStorage("proizvodPoID")){
+        ispisiProizvodPoID();
+    }
+    
+    
     proveraKorpe();
+    osveziKorpu();
 })
 
+$(".korpaIspis").click(function(){
+    location.reload();
+    console.log("kliknuto na korpu");
+    proveraKorpe();
+})
 /* FUNKCIJA ZA POZIVANJE AJAX-A */
 function ajaxFunction(path,method, result){
 
@@ -251,8 +268,8 @@ function ispisProizvoda(proizvodi, klasaPrikaz, deoStrane){
 $(document).on("click", ".prikazProizvodaPoID", function(){
     var id = $(this).data("id");
     var proizvodPoID = objProizvodi.filter(el => el.id == id);
-    ispisiProizvodPoID();
     setLocaleStorage("proizvodPoID", proizvodPoID);
+    ispisiProizvodPoID();
 })
 
 function ispisiProizvodPoID(){
@@ -595,9 +612,6 @@ function osveziKorpu(){
         let brojProizvodaUKorpi = proizvodi.length;
         $(".brojProizvoda").html(`<span class="fas fa-shopping-cart pe-2 ms-2 ms-2" ></span>${brojProizvodaUKorpi}`);
     }
-    /*else{
-        $(".brojProizvoda").html(`<span class="fas fa-shopping-cart pe-2 ms-2 ms-2" ></span>`);
-    }*/
 }
 
 function proveraKorpe(){
@@ -814,3 +828,36 @@ function proveraRegularnihIzraza(regIzraz,vrednost, ispis){
 $("#btnAutor").click(function(){
     modal("#modal-bg-autor");
 })
+
+function dodeliAnimacijuSlideToggle(niz){
+    niz.forEach(element => {
+        elementSLideToggle(element);
+    });
+}
+
+function elementSLideToggle(elementClick){
+    $(elementClick).click(function(){
+        var element = $(this);
+        element.next().slideToggle('slow');
+        element.find(".fa-chevron-down").toggle();
+        element.find(".fa-chevron-up").toggle();
+    })
+}
+
+$(".karticaZasto").hover(function(){
+
+    $(this).animate({
+        padding:  "+=25px",
+        fontSize: "+=2px"
+    }, 2000)
+
+}, function(){
+
+    $(this).stop(true, true);
+    $(this).animate({
+        padding: "-=25px",
+        fontSize: "-=2px"
+    }, 1000)
+
+})
+
