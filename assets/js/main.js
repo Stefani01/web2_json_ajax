@@ -7,6 +7,9 @@ let gridKlasa = Array(6, 4, 3);
 let objProizvodi = getLocaleStorage("proizvodi");
 
 window.onload = function(){
+    var kolicina = 1;
+    localStorage.setItem("kolicina", kolicina);
+
     $(".loader").fadeToggle("slow");
 
     $(document).on("click", ".prikazProizvodaPoID", function(){
@@ -47,37 +50,33 @@ window.onload = function(){
         setLocaleStorage("popust", data);
     })
 
-    /*
-    if(window.location.pathname == "/prikazProizvoda.html"){
+    if(location.pathname == "/prikazProizvoda.html"){
         ispisiProizvodPoID();
-    }*/
-    ispisiProizvodPoID();
+    }
+
+    osveziKorpu();
+    proveraKorpe();
 }
 
 /* PROVERA UNOSA KOLICINE PROIZVODA */
 $(document).on("click", ".povecaj", function(){
-    var iznos = Number($("#iznos").val());
+    var iznos = Number($(".iznos").val());
     var vratiIznos = iznos+1;
     if(vratiIznos > 1){
         $(".smanji").show();
     }
-    $("#iznos").val(vratiIznos);
+    $(".iznos").val(vratiIznos);
+    localStorage.setItem("kolicina", vratiIznos);
 })
 
 $(document).on("click", ".smanji", function(){
-    var iznos = Number($("#iznos").val());
+    var iznos = Number($(".iznos").val());
     var vratiIznos = iznos-1;
     if(vratiIznos == 1){
         $(".smanji").hide();
     }
-    $("#iznos").val(vratiIznos);
-})
-
-$(document).on("blur", "#iznos", function(){
-    var vrednost = $(this).val();
-    if(Number(vrednost) < 1){
-        $(this).val(1);
-    }
+    $(".iznos").val(vratiIznos);
+    localStorage.setItem("kolicina", vratiIznos);
 })
 
 /* FUNKCIJA ZA RANDOM PRIKAZ PROIZVODA */
@@ -273,7 +272,7 @@ function ispisProizvoda(proizvodi, klasaPrikaz, deoStrane){
                 <figure class="figure d-flex flex-column align-content-end">
                     <img src="assets/images/${proizvod.slika}" class="figure-img img-fluid h-100 rounded" alt="${proizvod.opis}">
                     <figcaption class="figure-caption text-dark">
-                        <h2 class="m-0">${proizvod.naziv}</h2>
+                        <h3 class="m-0">${proizvod.naziv}</h3>
                         <p class="mt-2">${proizvod.opis}</p>
                         ${obradaCeneIPopusta(proizvod.popust, proizvod.cena)}
                     </figcaption>
@@ -304,8 +303,18 @@ $(document).on("click", ".prikazProizvodaPoID", function(){
 
 function ispisiProizvodPoID(){
     let proizvod = getLocaleStorage("proizvodPoID");
+    let proizvodiIzKorpe = getLocaleStorage("proizvodKorpa");
     let html ="";
+    let vrednost;
     for(let p of proizvod){
+        for(let k of proizvodiIzKorpe){
+            if(k.proizvod == p.id){
+                vrednost = k.kolicina;
+            }
+            else{
+                vrednost = 1;
+            }
+        }
         html += `
                 <div class="col-12 col-md-6 text-center align-self-center">
                     <img src="assets/images/${p.slika}" class="figure-img img-fluid h-100 rounded" alt="${p.opis}">
@@ -317,7 +326,7 @@ function ispisiProizvodPoID(){
                     ${obradaCeneIPopusta(p.popust, p.cena)}
                     <p class="text-end">Količina: 
                         <span class="ps-5 pe-2 smanji">-</span>
-                            <span><input type="text" id="iznos" value="1"/></span>
+                            <span><input type="text" class="iznos" value="${vrednost}" disabled/></span>
                         <span class="povecaj ps-2">+</span>
                     </p>
                     <div class="row">
@@ -387,6 +396,9 @@ function prikazCena(cena){
     }
     if(cenaustring.length == 6){
         ispis = cenaustring.substring(0,1)+"."+cenaustring.substring(1,4)+","+cenaustring.substring(5)+"0 RSD";
+    }
+    if(cenaustring.length == 7){
+        ispis = cenaustring.substring(0,2)+"."+cenaustring.substring(2,5)+","+cenaustring.substring(6)+"0 RSD";
     }
     return ispis;
 }
@@ -527,41 +539,212 @@ $(document).on("click", "#btnKorpaDodaj", function(){
     modal("#modal-bg-korpa");
     var id = $(this).data("idkorpa");
     obradaKorpe(id);
-    //document.querySelector("#brojProizvoda").innerHTML += "1";
-  
 })
 
 function obradaKorpe(id){
     let korpa = getLocaleStorage("proizvodKorpa");
-    let idKorpa;
-
+    let idIzKorpe;
     if(korpa){
-        console.log(korpa);
-        for(let k of korpa.proizvod){
-            idKorpa = k.id;
+        for(let k of korpa){
+            if(id == k.proizvod){
+                idIzKorpe = k.proizvod;
+            }
         }
-
-        if(id == idKorpa){
-            console.log("vec postoji u korpi");
-            // proizvod vec postoji u korpi, samo se povecava njegova kolicina
+        if(idIzKorpe){
+            azurirajProizvodUKorpi(id);
         }
         else{
-            // postoji korpa ali ne i taj proizvod
-            console.log("else")
+            dodajNovProizvodUKorpu(id);
+            osveziKorpu();
         }
     }
     else{
-        dodajUKorpu(id);
-        // proizvod se tek dodaje u korpu
+        dodajPrviProizvodUKorpu(id);
+        osveziKorpu();
     }
     
 }
 
-function dodajUKorpu(id){
-    console.log("nov proizvod");
-    let proizvod = objProizvodi.filter(el => el.id == id);
-    let prozvodKorpa = {proizvod: [proizvod], kolicina: 1};
-    setLocaleStorage("proizvodKorpa", prozvodKorpa);
+function dodajPrviProizvodUKorpu(id){
+    let dodajNovProizvod = [];
+    let broj = vratiKolicinu();
+    dodajNovProizvod[0] = {proizvod: id, kolicina: broj};
+    setLocaleStorage("proizvodKorpa", dodajNovProizvod);
+}
+
+function azurirajProizvodUKorpi(id){
+    let proizvod = getLocaleStorage("proizvodKorpa");
+    let broj = vratiKolicinu();
+    for(let p of proizvod){
+        if(p.proizvod == id){
+           // p.kolicina += broj-1; break;
+           p.kolicina = broj; break;
+        }
+    }
+    setLocaleStorage("proizvodKorpa", proizvod);
+}
+
+function dodajNovProizvodUKorpu(id){
+    let proizvodiIzKorpe = getLocaleStorage("proizvodKorpa");
+    let broj = vratiKolicinu();
+    proizvodiIzKorpe.push({proizvod: id, kolicina: broj});
+    setLocaleStorage("proizvodKorpa", proizvodiIzKorpe);
+}
+
+function vratiKolicinu(){
+    let brojProizvoda = localStorage.getItem("kolicina");
+    return Number(brojProizvoda);
+}
+
+function osveziKorpu(){
+    var proizvodi = getLocaleStorage("proizvodKorpa");
+    if(proizvodi){
+        let brojProizvodaUKorpi = proizvodi.length;
+        $("#brojProizvoda").html(`<span class="fas fa-shopping-cart pe-2 ms-2 ms-2" ></span>${brojProizvodaUKorpi}`);
+    }
+    else{
+        $("#brojProizvoda").html(`<span class="fas fa-shopping-cart pe-2 ms-2 ms-2" ></span>`);
+    }
+}
+
+function proveraKorpe(){
+    let korpa = getLocaleStorage("proizvodKorpa");
+    let brojProizvodaUKorpi = korpa.length;
+    if(brojProizvodaUKorpi){
+        ispisiProizvodeIzKorpe();
+        $("#dodatno").show();
+    }
+    else{
+        obavestenjeKorpa();
+        $("#dodatno").hide();
+    }
+}
+
+function obavestenjeKorpa(){
+    let html = `<div class="col-6 mx-auto">
+        <p class="bg-dark bojaShimmer text-center p-2 rounded">Trenutno nema proizvoda u korpi!</p>
+        <div class="d-grid gap-2">
+            <a href="proizvodi.html" class="btn btn-light"><i class="fas fa-angle-double-left bojaShimmer me-2"></i>Nastavi sa kupovinom </a>
+        </div>
+    </div>`;
+    $("#rezultatKorpa").html(html);
+}
+
+function ispisiProizvodeIzKorpe(){
+    let tabela = ` <table class="table" id="tabelaProizvodiKorpa">
+                        <thead>
+                            <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Proizvod</th>
+                            <th scope="col"></th>
+                            <th scope="col">Količina</th>
+                            <th scope="col">Ukupno</th>
+                            <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>`;
+                        tabela += ispis();
+    tabela += `</tbody></table>`;
+    $("#rezultatKorpa").html(tabela);
+}
+
+var zbir = 0;
+function krajnjiRezultat(ukupnaCena){
+    zbir += ukupnaCena;
+    let dostava = obradiDostavu(zbir);
+    let prikazi = `${obradaCeneIPopusta(0,zbir)}`;
+    $("#ukupanIznos").html(prikazi);
+    ukupanIznosPorudzbine(zbir, dostava);
+    localStorage.setItem("zbir", ukupnaCena);
+}
+
+function ukupanIznosPorudzbine(zbir,dostava){
+    var sveUkupno = zbir + dostava;
+    let prikazi = `${obradaCeneIPopusta(0, sveUkupno)}`;
+    $("#ukupno").html(prikazi);
+    localStorage.setItem("iznosPorudzbine", sveUkupno);
+}
+
+function obradiDostavu(ukupnaCena){
+    let ispis = "";
+    let dostava;
+    if(ukupnaCena <= 5000){
+        dostava = 550;
+        ispis += `<h5 class="text-center">${obradaCeneIPopusta(0,dostava)}</h5>`;
+    }
+    else{
+        dostava = 0;
+        ispis += `<h5 class="text-center">0 RSD</h5>`;
+    }
+    $("#dostava").html(ispis);
+    return dostava;
+}
+
+function ispis(){
+    let korpa = getLocaleStorage("proizvodKorpa");
+    var idProizvoda, kolicinaProizvoda, proizvod;
+    
+    let html = "";
+    let rb = 1;
+    for(let k of korpa){
+        idProizvoda = k.proizvod;
+        kolicinaProizvoda = k.kolicina;
+        proizvod = objProizvodi.filter(el => el.id == idProizvoda);
+        for(let p of proizvod){
+            html += `<tr>
+                            <th scope="row">${rb}</th>
+                            <td id="slika">
+                            <a href="prikazProizvoda.html" data-id="${p.id}" class="text-decoration-none link-dark prikazProizvodaPoID">
+                                <img src="assets/images/${p.slika}" alt="${p.opis}">
+                            </a>
+                            </td>
+                            <td class="text-center">${p.naziv}</td>
+                            <td>${kolicinaProizvoda}</td>
+                            <td id="cena" class="text-center">${izracunaj(p.cena, kolicinaProizvoda, p.popust)}</td>
+                            <td class="bojaShimmer"><i class="fas fa-trash-alt" id="obrisiIzKorpe" data-id=${p.id}></i></td>
+                        </tr>`;
+            rb++;
+        }
+    }
+    return html;
+}
+
+$(document).on("click", "#obrisiIzKorpe", function(){
+    let id = $(this).data("id");
+    let proizvodi = getLocaleStorage("proizvodKorpa");
+    let vratiUStorage = proizvodi.filter(el => el.proizvod != id);
+    setLocaleStorage("proizvodKorpa", vratiUStorage);
+
+    let iznosKorpe = localStorage.getItem("zbir");
+    let proizvodCena = proizvodi.filter(el => el.id == id);
+    var rezultat;
+    for(let p of proizvodCena){
+        rezultat = iznosKorpe - p.cena;
+    }
+    krajnjiRezultat(rezultat);
+    proveraKorpe();
+    ispis();
+})
+
+function izracunaj(cena,kol, idp){
+    let kolicina = Number(kol);
+    var ukupnaCena = cena*kolicina;
+    let popust = getLocaleStorage("popust");
+    let prikazi;
+    if(idp == 0){
+        prikazi = obradaCeneIPopusta(0, ukupnaCena);
+        krajnjiRezultat(ukupnaCena);
+    }
+    else{
+        for(let p of popust){
+            if(idp == p.id){
+                 cenaSaPopustom = ukupnaCena-(ukupnaCena*p.iznos)/100; break;
+            }
+        }
+        prikazi = obradaCeneIPopusta(0, cenaSaPopustom);
+        krajnjiRezultat(cenaSaPopustom);
+    }
+    return prikazi;
 }
 
 /* FUNKCIJA ZA MODAL */
@@ -571,3 +754,12 @@ function modal(idModal){
         $(idModal).removeClass("modal_active");
     })
 }
+
+
+$("#btnNaruci").click(function(){
+
+})
+
+$("#btnZavrsi").click(function(){
+    modal("#modal-bg-porudzbina");
+})

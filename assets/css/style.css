@@ -314,7 +314,7 @@ input.form-check-input:checked {
 }
 
 /* modal */
-#modal-bg, #modal-bg-korpa {
+#modal-bg, #modal-bg-korpa, #modal-bg-porudzbina {
   position: fixed;
   top: 0;
   left: 0;
@@ -337,11 +337,11 @@ input.form-check-input:checked {
   transition: visibility 1s, opacity 1s;
 }
 
-#modal-bg .modalX, #modal-bg-korpa .modalX {
+#modal-bg .modalX, #modal-bg-korpa .modalX, #modal-bg-porudzbina .modalX {
   cursor: pointer !important;
 }
 
-#modal-bg #modal, #modal-bg #modalKorpa, #modal-bg-korpa #modal, #modal-bg-korpa #modalKorpa {
+#modal-bg #modal, #modal-bg #modalKorpa, #modal-bg #modalPorudzbina, #modal-bg-korpa #modal, #modal-bg-korpa #modalKorpa, #modal-bg-korpa #modalPorudzbina, #modal-bg-porudzbina #modal, #modal-bg-porudzbina #modalKorpa, #modal-bg-porudzbina #modalPorudzbina {
   width: 40%;
 }
 
@@ -350,7 +350,7 @@ input.form-check-input:checked {
   opacity: 1 !important;
 }
 
-#iznos {
+.iznos {
   width: 30px;
   text-align: center;
 }
@@ -370,5 +370,24 @@ input.form-check-input:checked {
 
 #prikazPoID ul li::marker {
   color: #E9C490;
+}
+
+#tabelaProizvodiKorpa #slika {
+  width: 15%;
+  height: 150px;
+}
+
+#tabelaProizvodiKorpa #slika img {
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+#tabelaProizvodiKorpa #obrisiIzKorpe {
+  cursor: pointer;
+}
+
+#dodatno {
+  display: none;
 }
 /*# sourceMappingURL=style.css.map */

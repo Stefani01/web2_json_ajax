@@ -282,7 +282,7 @@ input.form-check-input:checked{
 }
 
 /* modal */
-#modal-bg, #modal-bg-korpa{
+#modal-bg, #modal-bg-korpa, #modal-bg-porudzbina{
     position: fixed;
     top: 0;
     left: 0;
@@ -300,7 +300,7 @@ input.form-check-input:checked{
             cursor: pointer !important;
         }
 
-        #modal, #modalKorpa{
+        #modal, #modalKorpa, #modalPorudzbina{
             width: 40%;
         }
 }
@@ -311,7 +311,7 @@ input.form-check-input:checked{
 }
 
 
-#iznos{
+.iznos{
     width: 30px;
     text-align: center;
 }
@@ -334,4 +334,23 @@ input.form-check-input:checked{
     ul li::marker{
         color: $shimmer;
     }
+}
+
+#tabelaProizvodiKorpa{
+    #slika{
+        width: 15%;
+        height: 150px;
+    }
+    #slika img{
+        text-align: center;
+        width: 100%;
+        height: 100%;
+    }
+    #obrisiIzKorpe{
+        cursor: pointer;
+    }
+}
+
+#dodatno{
+    display: none;
 }

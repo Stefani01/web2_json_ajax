@@ -55,10 +55,10 @@
                 </ul>
               </div>
               <div id="kolicaKupovina" class="me-3 d-none d-lg-block">
-                  <a href="korpa.html">
-                     <span class="badge rounded-pill bg-dark bojaShimmer"><span class="fas fa-shopping-cart pe-2"></span></span>
-                  </a>
-                </div>
+                <a href="korpa.html" id="korpaIspis" class="bojaShimmer">
+                   <span class="badge rounded-pill bg-dark bojaShimmer" id="brojProizvoda"></span>
+                </a>
+           </div>
             </div>
           </nav>
     </header>
@@ -66,16 +66,61 @@
     <main>
         <div class="container mt-5 mb-5">
             <hr class="mt-5 mb-5 bojaShimmer">
-            <div class="row">
-                <div class="col-6 mx-auto">
-                    <p class="bg-dark bojaShimmer text-center p-2 rounded">Trenutno nema proizvoda u korpi!</p>
+            <div class="row" id="rezultatKorpa">
+                <div class="col-10 mx-auto">
+                    
+                </div>
+            </div>
+            <div class="row mb-3 mt-3" id="dodatno">
+                <div class="col-8 mx-auto">
+                    <p>Porudžbina: </p> <span id="ukupanIznos"></span>
+                    <p>Dostava: </p> <span id="dostava"></span>
+                    <p><hr></p>
+                    <p>Ukupno: </p> <span id="ukupno"></span>
                     <div class="d-grid gap-2">
-                        <a href="proizvodi.html" class="btn btn-light">Nastavi sa kupovinom <i class="fas fa-angle-double-right ms-2 bojaShimmer"></i></a>
+                        <button class="btn bg-dark text-light" id="btnNaruci" type="button">Naruči</button>
+                    </div>
+                </div> 
+            </div>
+            <hr class="mt-5 mb-5 bojaShimmer">
+            <div class="row mt-3 mb-3" id="formaNaruzbina">
+                <div class="col-6 mx-auto">
+                    <form action="">
+                        <div class="form-group">
+                            <label for="tbImePrezime">Ime i prezime:</label>
+                            *<input type="text" class="form-control mt-2" id="tbImePrezime" name="imePrezime">
+                            <span></span>
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="tbEmail">Email:</label>
+                            *<input type="text" class="form-control mt-2" id="tbEmail" name="email">
+                            <span></span>
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="tbEmail">Broj telefona:</label>
+                            *<input type="text" class="form-control mt-2" id="tbBrTelefona" name="telefon">
+                            <span></span>
+                        </div>
+                        <div class="form-group mt-2">
+                            <label for="tbEmail">Adresa:</label>
+                            *<input type="text" class="form-control mt-2" id="tbAdresa" name="adresa">
+                            <span></span>
+                        </div>
+                        <p>*Plaćanje se vrši pouzećem</p>
+                        <div class="form-group text-center mt-3">
+                            <button type="button" id="btnZavrsi" name="btnZavrsi" class="btn btn-dark bojaShimmer">Završi porudžbinu <i class="fas fa-paper-plane ps-2"></i></button>
+                        </div>
+                    </form>
+                    <div id="modal-bg-porudzbina">
+                        <div id="modalPorudzbina" class="borderShimmer bg-light text-dark p-3 rounded">
+                            <div class="mb-2 modalX" id="">
+                                <i class="fas fa-times d-flex justify-content-end"></i>
+                            </div>
+                            <h2 class="text-center p-3 mb-2">Uspešno ste izvršili porudžbinu!</h2>
+                        </div>
                     </div>
                 </div>
             </div>
-            <hr class="mt-5 mb-5 bojaShimmer">
-            
         </div>
     </main>
     <!-- FOOTER -->
