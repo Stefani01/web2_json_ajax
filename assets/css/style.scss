@@ -209,7 +209,7 @@ img#grid4{
     cursor: pointer;
 }
 
-.form-control:focus, .form-select:focus{
+.form-control:focus, .form-select:focus, .form-check-input{
     border-color: $shimmer !important;
     outline: 0;
     -webkit-box-shadow: none !important;
@@ -282,7 +282,7 @@ input.form-check-input:checked{
 }
 
 /* modal */
-#modal-bg, #modal-bg-korpa, #modal-bg-porudzbina{
+#modal-bg, #modal-bg-korpa, #modal-bg-porudzbinaForma{
     position: fixed;
     top: 0;
     left: 0;
@@ -292,7 +292,7 @@ input.form-check-input:checked{
     display: flex !important;
     justify-content: center;
     align-items: center;
-    z-index: 50;
+    z-index: 9999;
     visibility: hidden;
     opacity: 0;
     transition: visibility 1s, opacity 1s;
@@ -300,7 +300,7 @@ input.form-check-input:checked{
             cursor: pointer !important;
         }
 
-        #modal, #modalKorpa, #modalPorudzbina{
+        #modal, #modalKorpa{
             width: 40%;
         }
 }
@@ -326,7 +326,7 @@ input.form-check-input:checked{
 }
 
 
-#brojProizvoda{
+.brojProizvoda{
     font-size: 20px;
 }
 
@@ -354,3 +354,6 @@ input.form-check-input:checked{
 #dodatno{
     display: none;
 }
+
+
+

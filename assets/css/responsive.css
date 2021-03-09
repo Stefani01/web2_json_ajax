@@ -17,6 +17,10 @@
     #modal, #modalKorpa{
         width: 80% !important;
     }
+
+    .brojProizvoda{
+        font-size: 10px;
+    }
 }
 
 @media screen and (max-width:400px){
@@ -47,5 +51,6 @@
     #videoyt{
         width: 250px;
     }
+    
     
 }

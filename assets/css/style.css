@@ -222,7 +222,7 @@ img#grid4 {
   cursor: pointer;
 }
 
-.form-control:focus, .form-select:focus {
+.form-control:focus, .form-select:focus, .form-check-input {
   border-color: #E9C490 !important;
   outline: 0;
   -webkit-box-shadow: none !important;
@@ -314,7 +314,7 @@ input.form-check-input:checked {
 }
 
 /* modal */
-#modal-bg, #modal-bg-korpa, #modal-bg-porudzbina {
+#modal-bg, #modal-bg-korpa, #modal-bg-porudzbinaForma {
   position: fixed;
   top: 0;
   left: 0;
@@ -330,18 +330,18 @@ input.form-check-input:checked {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  z-index: 50;
+  z-index: 9999;
   visibility: hidden;
   opacity: 0;
   -webkit-transition: visibility 1s, opacity 1s;
   transition: visibility 1s, opacity 1s;
 }
 
-#modal-bg .modalX, #modal-bg-korpa .modalX, #modal-bg-porudzbina .modalX {
+#modal-bg .modalX, #modal-bg-korpa .modalX, #modal-bg-porudzbinaForma .modalX {
   cursor: pointer !important;
 }
 
-#modal-bg #modal, #modal-bg #modalKorpa, #modal-bg #modalPorudzbina, #modal-bg-korpa #modal, #modal-bg-korpa #modalKorpa, #modal-bg-korpa #modalPorudzbina, #modal-bg-porudzbina #modal, #modal-bg-porudzbina #modalKorpa, #modal-bg-porudzbina #modalPorudzbina {
+#modal-bg #modal, #modal-bg #modalKorpa, #modal-bg-korpa #modal, #modal-bg-korpa #modalKorpa, #modal-bg-porudzbinaForma #modal, #modal-bg-porudzbinaForma #modalKorpa {
   width: 40%;
 }
 
@@ -364,7 +364,7 @@ input.form-check-input:checked {
   display: none;
 }
 
-#brojProizvoda {
+.brojProizvoda {
   font-size: 20px;
 }
 
