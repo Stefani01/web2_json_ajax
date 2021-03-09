@@ -6,10 +6,16 @@ let gridKlasa = Array(6, 4, 3);
 
 let objProizvodi = getLocaleStorage("proizvodi");
 
-window.onload = function(){
+$(document).ready(function(){
     var kolicina = 1;
     localStorage.setItem("kolicina", kolicina);
 
+    $(document).on("click", ".prikazProizvodaPoID", function(){
+        var id = $(this).data("id");
+        var proizvodPoID = objProizvodi.filter(el => el.id == id);
+        setLocaleStorage("proizvodPoID", proizvodPoID);
+    })
+    
     $(".loader").fadeToggle("slow");
 
     ajaxFunction("meni", "get", function(data){
@@ -42,13 +48,10 @@ window.onload = function(){
     ajaxFunction("popust", "get", function(data){
         setLocaleStorage("popust", data);
     })
-
-    
     ispisiProizvodPoID();
-
     osveziKorpu();
     proveraKorpe();
-}
+})
 
 /* FUNKCIJA ZA POZIVANJE AJAX-A */
 function ajaxFunction(path,method, result){
