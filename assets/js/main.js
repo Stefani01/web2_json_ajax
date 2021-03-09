@@ -56,7 +56,7 @@ $(document).ready(function(){
     
     
     proveraKorpe();
-    osveziKorpu();
+   // osveziKorpu();
 })
 
 $(".korpaIspis").click(function(){
