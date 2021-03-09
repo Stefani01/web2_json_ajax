@@ -597,9 +597,9 @@ function osveziKorpu(){
         let brojProizvodaUKorpi = proizvodi.length;
         $(".brojProizvoda").html(`<span class="fas fa-shopping-cart pe-2 ms-2 ms-2" ></span>${brojProizvodaUKorpi}`);
     }
-    else{
+    /*else{
         $(".brojProizvoda").html(`<span class="fas fa-shopping-cart pe-2 ms-2 ms-2" ></span>`);
-    }
+    }*/
 }
 
 function proveraKorpe(){
@@ -812,3 +812,7 @@ function proveraRegularnihIzraza(regIzraz,vrednost, ispis){
     }
     return brojGresaka;
 }
+
+$("#btnAutor").click(function(){
+    modal("#modal-bg-autor");
+})

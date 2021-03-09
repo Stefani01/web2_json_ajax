@@ -21,6 +21,9 @@
     .brojProizvoda{
         font-size: 10px;
     }
+    #modalAutor p{
+        font-size: 15px;
+    }
 }
 
 @media screen and (max-width:400px){
@@ -40,6 +43,9 @@
     #videoyt{
         width: 290px;
     }
+    #modalAutor p{
+        font-size: 9px;
+    }
 
 }
 
@@ -52,5 +58,7 @@
         width: 250px;
     }
     
-    
+    #modalAutor p{
+        font-size: 7px;
+    }
 }

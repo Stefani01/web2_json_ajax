@@ -47,20 +47,20 @@
                 <span class="fas fa-bars"></span>
               </button>
               <a class="navbar-brand" href="index.html"><img src="assets/images/lana_jurcevic_prirodna_kozmetika.png" class="img-fluid" alt="Prirodna_kozmetika_lana_jurcevic_la_piel_logo.png"></a>
-              <div id="kolicaKupovina" class="me-3 d-block d-lg-none">
-                <a href="korpa.html" id="korpaIspis" class="bojaShimmer">
-                    <span class="badge rounded-pill bg-dark bojaShimmer" id="brojProizvoda"></span>
+              <div id="kolicaKupovinaMala" class="me-3 d-block d-lg-none">
+                <a href="korpa.html" id="korpaIspisMala" class="bojaShimmer d-block d-lg-none">
+                    <span class="badge rounded-pill bg-dark bojaShimmer brojProizvoda" id=""><span class="fas fa-shopping-cart pe-2 ms-2 ms-2" ></span></span>
                  </a>
-            </div>
+                </div>
               <div class="collapse navbar-collapse" id="meniToggle">
                 <ul class="navbar-nav mx-auto mb-2 mb-lg-0" id="navbarMeni">
                 </ul>
               </div>
               <div id="kolicaKupovina" class="me-3 d-none d-lg-block">
-                  <a href="korpa.html" id="korpaIspis" class="bojaShimmer">
-                     <span class="badge rounded-pill bg-dark bojaShimmer" id="brojProizvoda"></span>
-                  </a>
-             </div>
+                <a href="korpa.html" id="korpaIspis" class="bojaShimmer d-none d-lg-block">
+                   <span class="badge rounded-pill bg-dark bojaShimmer brojProizvoda" id=""><span class="fas fa-shopping-cart pe-2 ms-2 ms-2" ></span></span>
+                </a>
+              </div>
             </div>
           </nav>
     </header>
@@ -134,28 +134,38 @@
                         <h3 class="text-center text-md-start">Korisničke informacije</h3>
                         <ul class="list-group text-center text-md-start">
                             <li class="list-group-item border-0">
-                                <a href="#" class="text-decoration-none bojaShimmer">Česta pitanja</a>
-                            </li>
-                            <li class="list-group-item border-0">
-                                <a href="#" class="text-decoration-none bojaShimmer">Opšti uslovi kupovine</a>
-                            </li>
-                            <li class="list-group-item border-0">
-                                <a href="#" class="text-decoration-none bojaShimmer">Povraćaj proizvoda i sredstava</a>
+                                <a href="pitanja.html" class="text-decoration-none bojaShimmer">Česta pitanja</a>
                             </li>
                         </ul>
                     </div>
                     <div class="col-12 col-md-4">
                         <ul class="list-group d-flex align-items-center border-top border-bottom" id="autor">
                             <li class="list-group-item border-0">
-                                <a href="#" class="text-decoration-none">Dokumentacija</a>
+                                <a href="dokumentacija.pdf" class="text-decoration-none">Dokumentacija</a>
                             </li>
                             <li class="list-group-item border-0">
-                                <a href="#" class="text-decoration-none">O autoru</a>
+                                <button class="btn" id="btnAutor">O autoru</button>
                             </li>
                             <li class="list-group-item border-0">
-                                <a href="#" class="text-decoration-none">Sitemap</a>
+                                <a href="sitemap.xml" class="text-decoration-none">Sitemap</a>
                             </li>
                         </ul>
+                    </div>
+                    <div id="modal-bg-autor">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-9 mx-auto">
+                                    <div id="modalAutor" class="borderShimmer bg-light text-dark text-center p-3 rounded">
+                                        <div class="mb-2 modalX">
+                                            <i class="fas fa-times d-flex justify-content-end"></i>
+                                        </div>
+                                        <img src="assets/images/CYMERA_20200503_180909.png" alt="ovo sam ja" class="img-fluid mb-3">
+                                        <p class="text-start text-md-center"><i class="fas fa-user-graduate bojaShimmer me-1"></i> Stefani Simić 50/19</p>
+                                        <p class="text-start text-md-center"><i class="far fa-envelope-open bojaShimmer me-1"></i>stefani.simic.50.19@ict.edu.rs</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

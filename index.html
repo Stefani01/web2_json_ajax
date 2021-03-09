@@ -52,7 +52,7 @@
               <a class="navbar-brand" href="index.html"><img src="assets/images/lana_jurcevic_prirodna_kozmetika.png" class="img-fluid" alt="Prirodna_kozmetika_lana_jurcevic_la_piel_logo.png"></a>
               <div id="kolicaKupovinaMala" class="me-3 d-block d-lg-none">
                 <a href="korpa.html" id="korpaIspisMala" class="bojaShimmer d-block d-lg-none">
-                    <span class="badge rounded-pill bg-dark bojaShimmer brojProizvoda" id=""></span>
+                    <span class="badge rounded-pill bg-dark bojaShimmer brojProizvoda" id=""><span class="fas fa-shopping-cart pe-2 ms-2 ms-2" ></span></span>
                  </a>
                 </div>
               <div class="collapse navbar-collapse" id="meniToggle">
@@ -61,7 +61,7 @@
               </div>
               <div id="kolicaKupovina" class="me-3 d-none d-lg-block">
                 <a href="korpa.html" id="korpaIspis" class="bojaShimmer d-none d-lg-block">
-                   <span class="badge rounded-pill bg-dark bojaShimmer brojProizvoda" id=""></span>
+                   <span class="badge rounded-pill bg-dark bojaShimmer brojProizvoda" id=""><span class="fas fa-shopping-cart pe-2 ms-2 ms-2" ></span></span>
                 </a>
               </div>
             </div>
@@ -206,12 +206,28 @@
                                 <a href="#" class="text-decoration-none">Dokumentacija</a>
                             </li>
                             <li class="list-group-item border-0">
-                                <a href="https://stefanisimic5019.netlify.app/" class="text-decoration-none">O autoru</a>
+                                <button class="btn" id="btnAutor">O autoru</button>
                             </li>
                             <li class="list-group-item border-0">
                                 <a href="#" class="text-decoration-none">Sitemap</a>
                             </li>
                         </ul>
+                    </div>
+                    <div id="modal-bg-autor">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-9 mx-auto">
+                                    <div id="modalAutor" class="borderShimmer bg-light text-dark text-center p-3 rounded">
+                                        <div class="mb-2 modalX">
+                                            <i class="fas fa-times d-flex justify-content-end"></i>
+                                        </div>
+                                        <img src="assets/images/CYMERA_20200503_180909.png" alt="ovo sam ja" class="img-fluid mb-3">
+                                        <p class="text-start text-md-center"><i class="fas fa-user-graduate bojaShimmer me-1"></i> Stefani Simić 50/19</p>
+                                        <p class="text-start text-md-center"><i class="far fa-envelope-open bojaShimmer me-1"></i>stefani.simic.50.19@ict.edu.rs</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
