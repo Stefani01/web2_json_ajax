@@ -355,5 +355,16 @@ input.form-check-input:checked{
     display: none;
 }
 
-
-
+.slider{
+    display: flex;
+    height: 450px;
+    .items{
+        width: 150px;
+        height: 450px;
+        margin: 50px;
+        &img{
+            width: 150px;
+            height: 150px;
+        }
+    }
+}

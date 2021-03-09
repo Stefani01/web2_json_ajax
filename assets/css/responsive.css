@@ -6,6 +6,8 @@
     #videoPocetna{
         width: 350px;
     }
+
+    
 }
 
 
@@ -24,6 +26,7 @@
     #modalAutor p{
         font-size: 15px;
     }
+    
 }
 
 @media screen and (max-width:400px){
@@ -46,6 +49,7 @@
     #modalAutor p{
         font-size: 9px;
     }
+    
 
 }
 

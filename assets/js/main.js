@@ -10,7 +10,43 @@ $(document).ready(function(){
     $("#btnMeni").click(function(){
         $("#meniToggle").slideToggle(1000);
     })
+        
+    $('.multiple-items').slick({
+        infinite: true,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        arrows: false,
+        autoplay: true,
+        autoplaySpeed: 1500,
+        dots: false,
+        responsive: [
+            {
+              breakpoint: 1024,
+              settings: {
+                slidesToShow: 3,
+                slidesToScroll: 3,
+                infinite: true,
+                dots: false
+              }
+            },
+            {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2
+              }
+            },
+            {
+              breakpoint: 480,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1
+              }
+            }
+          ]
+      });
     
+
     var nizElKojimaSeDodeljujeAnimacijaSlideToggle = Array("#test", "#slanje", "#kupovina", "#ostecenje", "#proizvod", "#otvoriFilter", "#otvoriSort");
     dodeliAnimacijuSlideToggle(nizElKojimaSeDodeljujeAnimacijaSlideToggle);
 
@@ -41,6 +77,7 @@ $(document).ready(function(){
     ajaxFunction("proizvodi", "get", function(data){
         setLocaleStorage("proizvodi", data);
         ispisProizvoda(data, "3", "#ispisProizvoda"); 
+        slajderIspis(data);
     })
 
     ispisListeZaSortiranje();
@@ -56,8 +93,42 @@ $(document).ready(function(){
     
     
     proveraKorpe();
-   // osveziKorpu();
 })
+
+function slajderIspis(proizvodi){
+    let randomBrojevi = [];
+    for(let i=0; i<8; i++){
+        let random = Math.floor(Math.random()*24)+1;
+        randomBrojevi.push(random);
+    }
+    
+    let randomProizvodi = proizvodi.filter(function(el){
+        for(let i=0; i<randomBrojevi.length; i++){
+            if(el.id == randomBrojevi[i]){
+                return true;
+            }
+        }
+    })
+    ispisRandomProizvoda(randomProizvodi);
+}
+
+function ispisRandomProizvoda(proizvodi){
+    let html = "";
+    for(let proizvod of proizvodi){
+        html += `
+            <a href="prikazProizvoda.html" data-id="${proizvod.id}" class="text-decoration-none link-dark prikazProizvodaPoID items m-2">
+            <figure class="figure d-flex flex-column align-content-end">
+                <img src="assets/images/${proizvod.slika}" class="figure-img img-fluid h-100 rounded" alt="${proizvod.opis}">
+                <figcaption class="figure-caption text-dark">
+                    <h3 class="m-0">${proizvod.naziv}</h3>
+                    <p class="mt-2">${proizvod.opis}</p>
+                </figcaption>
+            </figure>
+        </a>`;
+    }
+    $("#slajderIspis").html(html);
+    ispisiProizvodPoID();
+}
 
 $(".korpaIspis").click(function(){
     location.reload();
@@ -357,7 +428,6 @@ function obradaCeneIPopusta(idPopust, cena){
 function prikazCena(cena){
     let ispis = "";
     let cenaustring = String(cena);
-
     if(cenaustring.length == 3){
         ispis = cenaustring.substring(0,3)+",00 RSD";
     }
@@ -367,7 +437,7 @@ function prikazCena(cena){
     if(cenaustring.length == 6){
         ispis = cenaustring.substring(0,1)+"."+cenaustring.substring(1,4)+","+cenaustring.substring(5)+"0 RSD";
     }
-    if(cenaustring.length >= 7){
+    if(cenaustring.length >= 5){
         ispis = cenaustring.substring(0,2)+"."+cenaustring.substring(2,5)+","+cenaustring.substring(6,7)+"0 RSD";
     }
     return ispis;
@@ -608,9 +678,15 @@ function vratiKolicinu(){
 
 function osveziKorpu(){
     var proizvodi = getLocaleStorage("proizvodKorpa");
+    let brojProizvodaUKorpi;
     if(proizvodi){
-        let brojProizvodaUKorpi = proizvodi.length;
+        brojProizvodaUKorpi = proizvodi.length;
+    }
+    if(brojProizvodaUKorpi){  
         $(".brojProizvoda").html(`<span class="fas fa-shopping-cart pe-2 ms-2 ms-2" ></span>${brojProizvodaUKorpi}`);
+    }
+    else{
+        $(".brojProizvoda").html(`<span class="fas fa-shopping-cart pe-2 ms-2 ms-2" ></span>`);
     }
 }
 
@@ -628,6 +704,7 @@ function proveraKorpe(){
         obavestenjeKorpa();
         $("#dodatno").hide();
     }
+    osveziKorpu();
 }
 
 function obavestenjeKorpa(){
@@ -692,7 +769,6 @@ function ispis(){
 }
 
 $(document).on("click", "#obrisiIzKorpe", function(){
-    //location.reload();
     let id = $(this).data("id");
     let proizvodi = getLocaleStorage("proizvodKorpa");
     let vratiUStorage = proizvodi.filter(el => el.proizvod != id);
@@ -730,6 +806,7 @@ function izracunaj(cena,kol, idp){
         prikazi = prikazCena(cenaSaPopustom);
         ukupnaCena = cenaSaPopustom;
     }
+    console.log(ukupnaCena);
     localStorage.setItem("ukupnaCena", ukupnaCena);
     krajnjiRezultat(ukupnaCena);
     return prikazi;
@@ -741,6 +818,7 @@ function krajnjiRezultat(ukupnaCena){
     let dostava = obradiDostavu(zbir);
     let prikazi = `${prikazCena(zbir)}`;
     console.log(zbir);
+    console.log(prikazi);
     $("#ukupanIznos").html(prikazi);
     ukupanIznosPorudzbine(zbir, dostava);
     localStorage.setItem("sveUkupno", zbir);
@@ -861,3 +939,4 @@ $(".karticaZasto").hover(function(){
 
 })
 
+      
