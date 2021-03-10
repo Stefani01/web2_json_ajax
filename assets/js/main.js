@@ -401,6 +401,9 @@ function prikazCena(cena){
     if(cenaustring.length == 6){
         ispis = cenaustring.substring(0,1)+"."+cenaustring.substring(1,4)+","+cenaustring.substring(5)+"0 RSD";
     }
+    if(cenaustring.length == 5){
+        ispis = cenaustring.substring(0,2)+"."+cenaustring.substring(1,4)+","+cenaustring.substring(5)+"00 RSD";
+    }
     if(cenaustring.length >= 7){
         ispis = cenaustring.substring(0,2)+"."+cenaustring.substring(2,5)+","+cenaustring.substring(6,7)+"0 RSD";
     }
@@ -771,6 +774,7 @@ function izracunaj(cena,kol, idp){
         prikazi = prikazCena(cenaSaPopustom);
         ukupnaCena = cenaSaPopustom;
     }
+    console.log(ukupnaCena);
     localStorage.setItem("ukupnaCena", ukupnaCena);
     krajnjiRezultat(ukupnaCena);
     return prikazi;
@@ -802,9 +806,8 @@ function obradiDostavu(ukupnaCena){
 }
 function ukupanIznosPorudzbine(zbir,dostava){
     var sveUkupno = zbir + dostava;
-    console.log(sveUkupno);
     let prikazi = `${prikazCena(sveUkupno)}`;
-    console.log(prikazi);
+    //${prikazCena(sveUkupno)}
     $("#ukupno").html(prikazi);
     localStorage.setItem("iznosPorudzbine", sveUkupno);
 }
