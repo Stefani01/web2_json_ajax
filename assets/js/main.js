@@ -18,24 +18,18 @@ let odgovori = Array("Svi naši proizvodi su minimalno 95% prirodni i time se po
 
 let idPitanja = Array("test","slanje","kupovina","ostecenje","proizvod");
 
+var nizElKojimaSeDodeljujeAnimacijaSlideToggle = Array("#test", "#slanje", "#kupovina", "#ostecenje", "#proizvod", "#otvoriFilter", "#otvoriSort");
+
 let objProizvodi = getLocaleStorage("proizvodi");
 
 $(document).ready(function(){
 
     $(".loader").fadeToggle("slow");
 
-    $("#btnMeni").click(function(){
-        $("#meniToggle").slideToggle(1000);
-    })
-
-    ispisiPitanjaIOdgovore(pitanja, odgovori);    
-    var nizElKojimaSeDodeljujeAnimacijaSlideToggle = Array("#test", "#slanje", "#kupovina", "#ostecenje", "#proizvod", "#otvoriFilter", "#otvoriSort");
-    dodeliAnimacijuSlideToggle(nizElKojimaSeDodeljujeAnimacijaSlideToggle);
-    
+    ucitaj();
 
     var kolicina = 1;
     localStorage.setItem("kolicina", kolicina);
-    
 
     ajaxFunction("meni", "get", function(data){
         nizIdIspisMenija.forEach(el => {
@@ -61,9 +55,7 @@ $(document).ready(function(){
         ispisProizvoda(data, "3", "#ispisProizvoda"); 
     })
 
-    ispisListeZaSortiranje();
-    klikIspisProizvoda(nizGrid, gridKlasa);
-
+    
     ajaxFunction("popust", "get", function(data){
         setLocaleStorage("popust", data);
     })
@@ -71,9 +63,24 @@ $(document).ready(function(){
     if(getLocaleStorage("proizvodPoID")){
         ispisiProizvodPoID();
     }
-    
-    
-    proveraKorpe();
+
+})
+
+function ucitaj(){
+    try{
+        ispisiPitanjaIOdgovore(pitanja, odgovori);    
+        dodeliAnimacijuSlideToggle(nizElKojimaSeDodeljujeAnimacijaSlideToggle);
+        ispisListeZaSortiranje();
+        klikIspisProizvoda(nizGrid, gridKlasa);
+        proveraKorpe();
+    }
+    catch(er){
+        console.log(er);
+    }
+}
+
+$("#btnMeni").click(function(){
+    $("#meniToggle").slideToggle(1000);
 })
 
 function ispisiPitanjaIOdgovore(pitanja, odgovori){
