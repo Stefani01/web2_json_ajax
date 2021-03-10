@@ -774,7 +774,6 @@ function izracunaj(cena,kol, idp){
         prikazi = prikazCena(cenaSaPopustom);
         ukupnaCena = cenaSaPopustom;
     }
-    console.log(ukupnaCena);
     localStorage.setItem("ukupnaCena", ukupnaCena);
     krajnjiRezultat(ukupnaCena);
     return prikazi;
@@ -807,7 +806,6 @@ function obradiDostavu(ukupnaCena){
 function ukupanIznosPorudzbine(zbir,dostava){
     var sveUkupno = zbir + dostava;
     let prikazi = `${prikazCena(sveUkupno)}`;
-    //${prikazCena(sveUkupno)}
     $("#ukupno").html(prikazi);
     localStorage.setItem("iznosPorudzbine", sveUkupno);
 }
