@@ -4,56 +4,38 @@ let nizIdIspisMenija = Array("#footerLinkoviMeni", "#navbarMeni");
 let nizGrid = Array("#grid2", "#grid3", "#grid4");
 let gridKlasa = Array(6, 4, 3);
 
+let pitanja = Array("Da li su vaši proizvodi prirodni i testirate li ih na životinjama?",
+"Gde sve šaljete svoje pakete i koliko je vreme dostave?",
+"Da li je sigurna kupovina preko online shope-a?",
+"Šta ako dobijem oštecen proizvod?",
+"Šta ako mi neki proizvod ne odgovara?");
+
+let odgovori = Array("Svi naši proizvodi su minimalno 95% prirodni i time se ponosimo. Naši proizvodi nisu testirani na životinjama, mi smo CRUELTY FREE brand koji voli životinje. Takođe, naši svi proizvodi su veganski.",
+"Šaljemo na teritoriji cele države. Vreme dostave zavisi od toga gde se šalje paket, kada i kako je izvršena naplata.Potrebno je od 10 do 48 radnih sati za obradu narudžbine. Nakon toga se paket šalje i njegova dostava traje od 4 do 6 radnih dana.",
+"Ne morate se brinuti! Vaša kupovina i Vaši podaci su sigurni i zaštićeni kod nas. Imamo sigurnu zaštitu koja se nalazi nad celom stranicom, tako da ste bez brige. Isto tako sve Vaše naplate su osigurane od strane najvećih banaka u Evropi.",
+"Oštećenja su moguća tokom transporta i obrade u dostavnoj službi. Ako primite svoju narudžbinu i jedan ili više proizvoda su oštećeni, javite nam se na lapiel@gmail.com s fotografijom oštećenja i podacima na koje je napravljena porudžbina i potrudićemo se da i pored toga budete zadovoljni.",
+"Naravno, javite nam se na lapiel@gmail.com i unutar 90 dana od primanja paketa i daćemo Vam sve informacije potrebne za postupak povraćaja. Naravno proizvod mora biti u originalnom pakovanju te mora biti ne iskorišcen.");
+
+let idPitanja = Array("test","slanje","kupovina","ostecenje","proizvod");
+
 let objProizvodi = getLocaleStorage("proizvodi");
 
 $(document).ready(function(){
+
+    $(".loader").fadeToggle("slow");
+
     $("#btnMeni").click(function(){
         $("#meniToggle").slideToggle(1000);
     })
-        
-    $('.multiple-items').slick({
-        infinite: true,
-        slidesToShow: 4,
-        slidesToScroll: 1,
-        arrows: false,
-        autoplay: true,
-        autoplaySpeed: 1500,
-        dots: false,
-        responsive: [
-            {
-              breakpoint: 1024,
-              settings: {
-                slidesToShow: 3,
-                slidesToScroll: 3,
-                infinite: true,
-                dots: false
-              }
-            },
-            {
-              breakpoint: 600,
-              settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2
-              }
-            },
-            {
-              breakpoint: 480,
-              settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1
-              }
-            }
-          ]
-      });
-    
 
+    ispisiPitanjaIOdgovore(pitanja, odgovori);    
     var nizElKojimaSeDodeljujeAnimacijaSlideToggle = Array("#test", "#slanje", "#kupovina", "#ostecenje", "#proizvod", "#otvoriFilter", "#otvoriSort");
     dodeliAnimacijuSlideToggle(nizElKojimaSeDodeljujeAnimacijaSlideToggle);
+    
 
     var kolicina = 1;
     localStorage.setItem("kolicina", kolicina);
     
-    $(".loader").fadeToggle("slow");
 
     ajaxFunction("meni", "get", function(data){
         nizIdIspisMenija.forEach(el => {
@@ -77,7 +59,6 @@ $(document).ready(function(){
     ajaxFunction("proizvodi", "get", function(data){
         setLocaleStorage("proizvodi", data);
         ispisProizvoda(data, "3", "#ispisProizvoda"); 
-        slajderIspis(data);
     })
 
     ispisListeZaSortiranje();
@@ -95,44 +76,20 @@ $(document).ready(function(){
     proveraKorpe();
 })
 
-function slajderIspis(proizvodi){
-    let randomBrojevi = [];
-    for(let i=0; i<8; i++){
-        let random = Math.floor(Math.random()*24)+1;
-        randomBrojevi.push(random);
-    }
-    
-    let randomProizvodi = proizvodi.filter(function(el){
-        for(let i=0; i<randomBrojevi.length; i++){
-            if(el.id == randomBrojevi[i]){
-                return true;
-            }
-        }
-    })
-    ispisRandomProizvoda(randomProizvodi);
-}
-
-function ispisRandomProizvoda(proizvodi){
+function ispisiPitanjaIOdgovore(pitanja, odgovori){
     let html = "";
-    for(let proizvod of proizvodi){
-        html += `
-            <a href="prikazProizvoda.html" data-id="${proizvod.id}" class="text-decoration-none link-dark prikazProizvodaPoID items m-2">
-            <figure class="figure d-flex flex-column align-content-end">
-                <img src="assets/images/${proizvod.slika}" class="figure-img img-fluid h-100 rounded" alt="${proizvod.opis}">
-                <figcaption class="figure-caption text-dark">
-                    <h3 class="m-0">${proizvod.naziv}</h3>
-                    <p class="mt-2">${proizvod.opis}</p>
-                </figcaption>
-            </figure>
-        </a>`;
+    for(let i=0; i<pitanja.length; i++){
+        html += `<li class="list-group-item text-uppercase border-0 rounded mt-3" id="${idPitanja[i]}">${pitanja[i]}
+        <i class="fas fa-chevron-down float-end mt-1 bojaShimmer"></i>
+        <i class="fas fa-chevron-up mt-1 float-end bojaShimmer strelicaGore"></i>
+        </li>
+        <p>${odgovori[i]}</p>`
     }
-    $("#slajderIspis").html(html);
-    ispisiProizvodPoID();
+    $("#ispisPitanjaOdgovori").html(html);
 }
 
 $(".korpaIspis").click(function(){
     location.reload();
-    console.log("kliknuto na korpu");
     proveraKorpe();
 })
 /* FUNKCIJA ZA POZIVANJE AJAX-A */
@@ -437,7 +394,7 @@ function prikazCena(cena){
     if(cenaustring.length == 6){
         ispis = cenaustring.substring(0,1)+"."+cenaustring.substring(1,4)+","+cenaustring.substring(5)+"0 RSD";
     }
-    if(cenaustring.length >= 5){
+    if(cenaustring.length >= 7){
         ispis = cenaustring.substring(0,2)+"."+cenaustring.substring(2,5)+","+cenaustring.substring(6,7)+"0 RSD";
     }
     return ispis;
@@ -555,6 +512,7 @@ function dodatnoFiltriranje(){
     return rezultat;
     
 }
+
 /* FILTRIRANJE PO KATEGORIJAMA */
 function filterPoKategorijama(){
     let proizvodi = getLocaleStorage("proizvodi");
@@ -806,7 +764,6 @@ function izracunaj(cena,kol, idp){
         prikazi = prikazCena(cenaSaPopustom);
         ukupnaCena = cenaSaPopustom;
     }
-    console.log(ukupnaCena);
     localStorage.setItem("ukupnaCena", ukupnaCena);
     krajnjiRezultat(ukupnaCena);
     return prikazi;
@@ -817,8 +774,6 @@ function krajnjiRezultat(ukupnaCena){
     zbir += ukupnaCena;
     let dostava = obradiDostavu(zbir);
     let prikazi = `${prikazCena(zbir)}`;
-    console.log(zbir);
-    console.log(prikazi);
     $("#ukupanIznos").html(prikazi);
     ukupanIznosPorudzbine(zbir, dostava);
     localStorage.setItem("sveUkupno", zbir);
@@ -923,7 +878,7 @@ function elementSLideToggle(elementClick){
 }
 
 $(".karticaZasto").hover(function(){
-
+    $(this).stop(true, true);
     $(this).animate({
         padding:  "+=25px",
         fontSize: "+=2px"
