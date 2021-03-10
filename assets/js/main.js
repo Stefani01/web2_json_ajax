@@ -402,7 +402,7 @@ function prikazCena(cena){
         ispis = cenaustring.substring(0,1)+"."+cenaustring.substring(1,4)+","+cenaustring.substring(5)+"0 RSD";
     }
     if(cenaustring.length == 5){
-        ispis = cenaustring.substring(0,2)+"."+cenaustring.substring(1,4)+","+cenaustring.substring(5)+"00 RSD";
+        ispis = cenaustring.substring(0,2)+"."+cenaustring.substring(2,5)+","+cenaustring.substring(6)+"00 RSD";
     }
     if(cenaustring.length >= 7){
         ispis = cenaustring.substring(0,2)+"."+cenaustring.substring(2,5)+","+cenaustring.substring(6,7)+"0 RSD";
@@ -774,6 +774,7 @@ function izracunaj(cena,kol, idp){
         prikazi = prikazCena(cenaSaPopustom);
         ukupnaCena = cenaSaPopustom;
     }
+
     localStorage.setItem("ukupnaCena", ukupnaCena);
     krajnjiRezultat(ukupnaCena);
     return prikazi;
