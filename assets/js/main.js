@@ -390,24 +390,8 @@ function obradaCeneIPopusta(idPopust, cena){
 
 /* FUNKCIJA ZA PRIKAZ CENA */
 function prikazCena(cena){
-    let ispis = "";
-    let cenaustring = String(cena);
-    if(cenaustring.length == 3){
-        ispis = cenaustring.substring(0,3)+",00 RSD";
-    }
-    if(cenaustring.length == 4){
-        ispis = cenaustring.substring(0,1)+"."+cenaustring.substring(1)+",00 RSD";
-    }
-    if(cenaustring.length == 6){
-        ispis = cenaustring.substring(0,1)+"."+cenaustring.substring(1,4)+","+cenaustring.substring(5)+"0 RSD";
-    }
-    if(cenaustring.length == 5){
-        ispis = cenaustring.substring(0,2)+"."+cenaustring.substring(2,5)+","+cenaustring.substring(6)+"00 RSD";
-    }
-    if(cenaustring.length >= 7){
-        ispis = cenaustring.substring(0,2)+"."+cenaustring.substring(2,5)+","+cenaustring.substring(6,7)+"0 RSD";
-    }
-    return ispis;
+    let zaokruzenaCena = cena.toFixed(2);
+    return zaokruzenaCena + " RSD";
 }
 
 /* FUNKCIJE ZA PRIKAZ PROIZVODA PO GRIDU */
